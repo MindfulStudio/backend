@@ -1,12 +1,21 @@
+
+import dotenv from "dotenv";
 import express from "express";
 import cors from "cors";
-import dotenv from "dotenv";
 
 import { appRouter } from "./routers/appRouter.js";
 import { errorMiddleware } from "./middlewares/errorMiddleware.js";
+import { connectDB } from "./utils/connectDB.js";
+
+//SINCE WE WORK IN SRC, PATH IS NECESSARY
+dotenv.config({ path: "../.env" });
 
 // LOAD ENV VARIABLES
-const PORT = process.env.PORT || 3000;
+const db_url = process.env.DB_URL;
+const port = process.env.PORT || 3000;
+
+//CONNECT TO DB
+await connectDB(db_url);
 
 // CREATE EXPRESS APP
 export const app = express();
@@ -24,7 +33,8 @@ app.use(
 app.use("/", appRouter);
 app.use(errorMiddleware);
 
+
 // START SERVER
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(`Server is running on port ${port}`);
 });

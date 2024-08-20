@@ -1,4 +1,3 @@
-
 import dotenv from "dotenv";
 import express from "express";
 import cors from "cors";
@@ -33,8 +32,7 @@ app.use(
 app.use("/", appRouter);
 app.use(errorMiddleware);
 
-
 // START SERVER
-app.listen(PORT, () => {
+app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });

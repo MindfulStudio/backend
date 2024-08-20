@@ -4,11 +4,8 @@ import dotenv from "dotenv";
 
 import { appRouter } from "./routers/appRouter.js";
 import { errorMiddleware } from "./middlewares/errorMiddleware.js";
-import { connectToDb } from "./utils/dbConnect.js"; // depending on db connection file
 
 // LOAD ENV VARIABLES
-dotenv.config();
-const { DB_CONNECTION_STRING } = process.env;
 const PORT = process.env.PORT || 3000;
 
 // CREATE EXPRESS APP
@@ -26,9 +23,6 @@ app.use(
 // ROUTES
 app.use("/", appRouter);
 app.use(errorMiddleware);
-
-// CONNECT TO DB
-await connectToDb(DB_CONNECTION_STRING); // depending on db connection file
 
 // START SERVER
 app.listen(PORT, () => {

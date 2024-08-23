@@ -2,13 +2,22 @@ import mongoose from "mongoose";
 
 const { Schema, model } = mongoose;
 
+const emotionFamilies = [
+  "Anspannung",
+  "Freude",
+  "Trauer",
+  "Entspannung",
+  "Gemischte Gefühle",
+];
+const tagCategories = ["wann", "wo", "mit wem", "was", "kontext"];
+
 const checkinSchema = new Schema(
   {
     // checkinsToday: { type: Number }, // NECESSARY?
     emotion: {
       family: {
         type: String,
-        enum: ["family1", "family2", "family3", "family4"],
+        enum: emotionFamilies,
         required: true,
       },
       name: { type: String, required: true },
@@ -19,10 +28,10 @@ const checkinSchema = new Schema(
       {
         category: {
           type: String,
-          enum: ["when", "where", "with", "context"],
+          enum: tagCategories,
           required: true,
         },
-        name: [{ type: String, required: true }],
+        name: { type: String, required: true },
         isDefault: { type: Boolean, default: true },
         isActive: { type: Boolean, default: true },
       },

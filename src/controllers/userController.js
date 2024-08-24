@@ -70,7 +70,7 @@ export const updateUser = async (req, res, next) => {
 export const deleteUser = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const user = await User.findById(id).populate("checkins");
+    const user = await User.findById(id);
     if (!user) {
       return res
         .status(404)

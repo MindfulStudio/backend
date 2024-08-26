@@ -2,26 +2,41 @@ import mongoose from "mongoose";
 
 const { Schema, model } = mongoose;
 
+const emotionFamilies = [
+  "Anspannung",
+  "Freude",
+  "Trauer",
+  "Entspannung",
+  "Gemischte Gefühle",
+];
+const tagCategories = ["wann", "wo", "mit wem", "was", "kontext"];
+
 const checkinSchema = new Schema(
   {
-    // Reference to User collection
-    userId: {
-      type: mongoose.Types.ObjectId,
-      required: true,
-      ref: "User",
-    },
-    // todayCount: { type: Number }, // NECESSARY?
+    // checkinsToday: { type: Number }, // NECESSARY?
     emotion: {
-      family: String,
-      name: [String],
+      family: {
+        type: String,
+        enum: emotionFamilies,
+        required: true,
+      },
+      name: { type: String, required: true },
+      isDefault: { type: Boolean, default: true },
+      isActive: { type: Boolean, default: true },
     },
-    tags: {
-      when: [String],
-      where: [String],
-      with: [String],
-      context: [String],
-    },
-    comment: String,
+    tags: [
+      {
+        category: {
+          type: String,
+          enum: tagCategories,
+          required: true,
+        },
+        name: { type: String, required: true },
+        isDefault: { type: Boolean, default: true },
+        isActive: { type: Boolean, default: true },
+      },
+    ],
+    comment: { type: String, default: null },
     sleepingHours: Number,
     physicalActivity: Boolean,
     weather: String,

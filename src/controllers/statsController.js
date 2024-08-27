@@ -17,7 +17,11 @@ export const getStatisticsByFamily = async (req, res, next) => {
       (checkin) => checkin.emotion.family === family
     );
 
-    const data = { checkinsTotal: checkinsByFamily.length, tags: [] };
+    const data = {
+      family: family,
+      stats: [],
+      total: checkinsByFamily.length,
+    };
 
     // CREATE A NEW MAP OBJECT
     const tagsMap = new Map();
@@ -38,7 +42,7 @@ export const getStatisticsByFamily = async (req, res, next) => {
     );
 
     // CONVERT THE MAP TO AN ARRAY
-    data.tags = Array.from(tagsMap, ([name, count]) => ({ name, count }));
+    data.stats = Array.from(tagsMap, ([name, count]) => ({ name, count }));
 
     res.status(200).json({ data });
   } catch (error) {

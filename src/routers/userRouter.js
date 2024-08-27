@@ -6,6 +6,7 @@ import {
   updateUser,
   deleteUser,
 } from "../controllers/userController.js";
+import { getStatisticsByFamily } from "../controllers/statisticsController.js";
 
 export const userRouter = express.Router();
 
@@ -17,3 +18,5 @@ userRouter
   .get(getSingleUser)
   .patch(updateUser)
   .delete(deleteUser);
+
+userRouter.route("/:userId/statisticsbyfamily").get(getStatisticsByFamily);

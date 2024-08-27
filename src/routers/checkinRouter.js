@@ -4,15 +4,12 @@ import {
   getAllCheckins,
   getSingleCheckin,
   postCheckin,
-  updateCheckin,
-  deleteCheckin,
+  getCheckinsFromToday,
 } from "../controllers/checkinController.js";
 
-export const checkinRouter = express.Router();
+export const checkinRouter = express.Router({ mergeParams: true });
 
 checkinRouter.route("/").get(getAllCheckins).post(postCheckin);
-checkinRouter
-  .route("/:id")
-  .get(getSingleCheckin)
-  .patch(updateCheckin)
-  .delete(deleteCheckin);
+// THIS ROUTER SHOULD BE PLACED BEFORE THE ONE WITH /:checkinId
+checkinRouter.route("/today").get(getCheckinsFromToday);
+checkinRouter.route("/:checkinId").get(getSingleCheckin);

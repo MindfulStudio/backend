@@ -17,12 +17,12 @@ export const getAllUsers = async (req, res, next) => {
 // GET SINGLE USER
 export const getSingleUser = async (req, res, next) => {
   try {
-    const { id } = req.params;
-    const user = await User.findById(id);
+    const { userId } = req.params;
+    const user = await User.findById(userId);
     if (!user) {
       return res
         .status(404)
-        .json({ message: `User with id [${id}] not found` });
+        .json({ message: `User with id [${userId}] not found` });
     }
     res.status(200).json({ data: user });
   } catch (error) {
@@ -46,21 +46,21 @@ export const postUser = async (req, res, next) => {
 // UPDATE USER
 export const updateUser = async (req, res, next) => {
   try {
-    const { id } = req.params;
+    const { userId } = req.params;
     const update = req.body;
     const options = {
       new: true,
       runValidators: true,
     };
-    const user = await User.findByIdAndUpdate(id, update, options);
+    const user = await User.findByIdAndUpdate(userId, update, options);
     if (!user) {
       return res
         .status(404)
-        .json({ message: `User with id [${id}] not found` });
+        .json({ message: `User with id [${userId}] not found` });
     }
     res
       .status(200)
-      .json({ message: `User with id [${id}] updated`, data: user });
+      .json({ message: `User with id [${userId}] updated`, data: user });
   } catch (error) {
     next(error);
   }
@@ -69,12 +69,12 @@ export const updateUser = async (req, res, next) => {
 // DELETE USER
 export const deleteUser = async (req, res, next) => {
   try {
-    const { id } = req.params;
-    const user = await User.findById(id);
+    const { userId } = req.params;
+    const user = await User.findById(userId);
     if (!user) {
       return res
         .status(404)
-        .json({ message: `User with id [${id}] not found` });
+        .json({ message: `User with id [${userId}] not found` });
     }
 
     // DELETE (USER'S CHECK-INS)
@@ -83,10 +83,10 @@ export const deleteUser = async (req, res, next) => {
     });
 
     // DELETE (USER)
-    const deleted = await User.findByIdAndDelete(id);
+    const deleted = await User.findByIdAndDelete(userId);
     res
       .status(200)
-      .json({ message: `User with id [${id}] deleted`, data: deleted });
+      .json({ message: `User with id [${userId}] deleted`, data: deleted });
   } catch (error) {
     next(error);
   }

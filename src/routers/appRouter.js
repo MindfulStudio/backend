@@ -5,4 +5,4 @@ import { checkinRouter } from "./checkinRouter.js";
 
 export const appRouter = express.Router();
 appRouter.use("/users", userRouter);
-appRouter.use("/checkins", checkinRouter);
+appRouter.use("/users/:userId/checkins", checkinRouter);

@@ -116,7 +116,7 @@ export const getAllCustoms = async (req, res, next) => {
   }
 };
 
-// SOFT-DELETE CUSTOM ITEM (EMOTION OR TAG)
+// DEACTIVATE CUSTOM ITEM (EMOTION OR TAG)
 
 export const deactivateCustom = async (req, res, next) => {
   try {

@@ -1,18 +1,20 @@
 import express from "express";
 
 import {
-  getAllUsers,
   getSingleUser,
   postUser,
   updateUser,
   deleteUser,
+  getAllCustoms,
+  deactivateCustom,
 } from "../controllers/userController.js";
 
 export const userRouter = express.Router();
 
-userRouter.route("/").get(getAllUsers).post(postUser);
+userRouter.route("/").post(postUser);
 userRouter
-  .route("/:id")
+  .route("/:userId")
   .get(getSingleUser)
   .patch(updateUser)
   .delete(deleteUser);
+userRouter.route("/:userId/customs").get(getAllCustoms).patch(deactivateCustom);

@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const { Schema, model } = mongoose;
 
-const emotionFamilies = [
+export const emotionFamilies = [
   "Anspannung",
   "Freude",
   "Trauer",
@@ -20,7 +20,10 @@ const checkinSchema = new Schema(
         enum: emotionFamilies,
         required: true,
       },
-      name: { type: String, required: true },
+      name: {
+        type: String,
+        required: true,
+      },
       isDefault: { type: Boolean, default: true },
       isActive: { type: Boolean, default: true },
     },
@@ -41,7 +44,7 @@ const checkinSchema = new Schema(
     physicalActivity: Boolean,
     weather: String,
   },
-  { timestamps: true, versionKey: false }
+  { timestamps: { createdAt: true, updatedAt: false }, versionKey: false }
 );
 
 export const Checkin = model("Checkin", checkinSchema);

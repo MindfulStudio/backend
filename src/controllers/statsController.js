@@ -12,7 +12,17 @@ export const getStatisticsByFamily = async (req, res, next) => {
     const user = await User.findById(userId).populate("checkins");
 
     if (!user) {
-      return res.status(404).json({ message: "User not found" });
+      return res.status(404).json({
+        error: "userNotFound",
+        message: `User with id [${userId}] not found`,
+      });
+    }
+
+    if (!family) {
+      return res.status(404).json({
+        error: "familyNotFound",
+        message: `Family [${family}] not found`,
+      });
     }
 
     // FILTER CHECK-INS CONTAINS THE SELECTED FAMILY
@@ -64,12 +74,15 @@ export const getStatisticsByTag = async (req, res, next) => {
 
     // ERROR HANDLING
     if (!user) {
-      return res
-        .status(404)
-        .json({ message: `User with id [${userId}] not found` });
+      return res.status(404).json({
+        error: "userNotFound",
+        message: `User with id [${userId}] not found`,
+      });
     }
     if (!tag) {
-      return res.status(400).json({ message: `Tag [${tag}] not found` });
+      return res
+        .status(404)
+        .json({ error: "tagNotFound", message: `Tag [${tag}] not found` });
     }
 
     // FILTER CHECK-INS: ONLY CHECK-INS WITH THIS TAG

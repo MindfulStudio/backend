@@ -37,6 +37,7 @@ const checkinSchema = new Schema(
         name: { type: String, required: true },
         isDefault: { type: Boolean, default: true },
         isActive: { type: Boolean, default: true },
+        _id: false,
       },
     ],
     comment: { type: String, default: null },

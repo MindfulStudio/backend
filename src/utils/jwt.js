@@ -6,7 +6,6 @@ const { ACCESS_TOKEN_SECRET } = process.env;
 
 //  Create an accessToken:
 export const jwtSign = async (email, userId, username) => {
-  console.log(ACCESS_TOKEN_SECRET);
   return await jwt.sign({ email, userId, username }, ACCESS_TOKEN_SECRET, {
     expiresIn: "120m",
   });

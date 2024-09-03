@@ -9,7 +9,10 @@ export const getAllCheckins = async (req, res, next) => {
     const user = await User.findById(userId).populate("checkins");
 
     if (!user) {
-      return res.status(404).json({ message: "User not found" });
+      return res.status(404).json({
+        error: "userNotFound",
+        message: `User with id [${userId}] not found`,
+      });
     }
 
     res.status(200).json({ data: user.checkins });
@@ -26,7 +29,10 @@ export const getCheckinsFromToday = async (req, res, next) => {
     const user = await User.findById(userId).populate("checkins");
 
     if (!user) {
-      return res.status(404).json({ message: "User not found" });
+      return res.status(404).json({
+        error: "userNotFound",
+        message: `User with id [${userId}] not found`,
+      });
     }
 
     // DATE SETUP
@@ -52,7 +58,10 @@ export const getSingleCheckin = async (req, res, next) => {
     const user = await User.findById(userId).populate("checkins");
 
     if (!user) {
-      return res.status(404).json({ message: "User not found" });
+      return res.status(404).json({
+        error: "userNotFound",
+        message: `User with id [${userId}] not found`,
+      });
     }
 
     const checkin = user.checkins.find(
@@ -60,7 +69,9 @@ export const getSingleCheckin = async (req, res, next) => {
     );
 
     if (!checkin) {
-      return res.status(400).json({ message: "Checkin not found" });
+      return res
+        .status(404)
+        .json({ error: "checkinNotFound", message: "Checkin not found" });
     }
 
     res.status(200).json({ data: checkin });
@@ -81,7 +92,10 @@ export const postCheckin = async (req, res, next) => {
     const user = await User.findById(userId);
 
     if (!user) {
-      return res.status(404).json({ message: "User not found" });
+      return res.status(404).json({
+        error: "userNotFound",
+        message: `User with id [${userId}] not found`,
+      });
     }
 
     user.checkins.push(newCheckin._id);
@@ -92,9 +106,10 @@ export const postCheckin = async (req, res, next) => {
     // SAVE CHANGES IN USER DOCUMENT
     await user.save();
 
-    res
-      .status(201)
-      .json({ message: "Check-in created succesfully", data: newCheckin });
+    res.status(201).json({
+      message: "Check-in created succesfully",
+      data: newCheckin,
+    });
   } catch (error) {
     next(error);
   }

@@ -3,23 +3,18 @@ import { Checkin } from "../models/checkinModel.js";
 
 //////////////////////// ON USER LEVEL ////////////////////////
 
-// BASIC FUNCTIONS
-
-const userNotFound = (res, user, userId) => {
-  if (!user) {
-    res.status(404).json({ message: `User with id [${userId}] not found` });
-    return true; // USER NOT FOUND
-  }
-  return false; // USER FOUND
-};
-
 // GET SINGLE USER
 
 export const getSingleUser = async (req, res, next) => {
   try {
     const { userId } = req.params;
     const user = await User.findById(userId);
-    if (userNotFound(res, user, userId)) return; // ABORT IF USER NOT FOUND
+    if (!user) {
+      return res.status(404).json({
+        error: "userNotFound",
+        message: `User with id [${userId}] not found`,
+      });
+    }
     res.status(200).json({ data: user });
   } catch (error) {
     next(error);
@@ -31,9 +26,6 @@ export const getSingleUser = async (req, res, next) => {
 export const postUser = async (req, res, next) => {
   try {
     const user = await User.create(req.body);
-    if (!user) {
-      return res.status(400).json({ message: "User could not be created" });
-    }
     res.status(201).json({ message: "User created successfully", data: user });
   } catch (error) {
     next(error);
@@ -51,7 +43,12 @@ export const updateUser = async (req, res, next) => {
       runValidators: true,
     };
     const user = await User.findByIdAndUpdate(userId, update, options);
-    if (userNotFound(res, user, userId)) return;
+    if (!user) {
+      return res.status(404).json({
+        error: "userNotFound",
+        message: `User with id [${userId}] not found`,
+      });
+    }
     res
       .status(200)
       .json({ message: `User with id [${userId}] updated`, data: user });
@@ -66,7 +63,12 @@ export const deleteUser = async (req, res, next) => {
   try {
     const { userId } = req.params;
     const user = await User.findById(userId);
-    if (userNotFound(res, user, userId)) return;
+    if (!user) {
+      return res.status(404).json({
+        error: "userNotFound",
+        message: `User with id [${userId}] not found`,
+      });
+    }
 
     // DELETE (USER'S CHECK-INS)
     for (let checkin of user.checkins) {
@@ -91,7 +93,12 @@ export const getAllCustoms = async (req, res, next) => {
   try {
     const { userId } = req.params;
     const user = await User.findById(userId).populate("checkins");
-    if (userNotFound(res, user, userId)) return;
+    if (!user) {
+      return res.status(404).json({
+        error: "userNotFound",
+        message: `User with id [${userId}] not found`,
+      });
+    }
 
     // CREATE LIST OF USER'S CUSTOM ITEMS:
     const customs = { emotions: [], tags: [] };
@@ -124,6 +131,7 @@ export const deactivateCustom = async (req, res, next) => {
     const { type, name } = req.body;
     if (!type || !name) {
       return res.status(400).json({
+        error: "missingInfo",
         message:
           "Please provide type and name of the custom item you want to deactivate.",
       });
@@ -131,7 +139,12 @@ export const deactivateCustom = async (req, res, next) => {
 
     // FIND USER'S CHECK-INS
     const user = await User.findById(userId).populate("checkins");
-    if (userNotFound(res, user, userId)) return;
+    if (!user) {
+      return res.status(404).json({
+        error: "userNotFound",
+        message: `User with id [${userId}] not found`,
+      });
+    }
 
     let isUpdated = false;
     // MAP THROUGH USER'S CHECK-INS
@@ -155,9 +168,11 @@ export const deactivateCustom = async (req, res, next) => {
     // IF ITEM WAS NOT FOUND, RETURN ERROR MESSAGE
     if (!isUpdated) {
       return res.status(404).json({
+        error: "customNotFound",
         message: `Custom item [${name}] of type [${type}] not found.`,
       });
     }
+
     // RETURN SUCCESS MESSAGE
     res.status(200).json({
       message: `Custom item(s) updated successfully.`,

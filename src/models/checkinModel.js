@@ -1,5 +1,4 @@
 import mongoose, { set } from "mongoose";
-import validator from "validator";
 import sanitizeHtml from "sanitize-html";
 
 const { Schema, model } = mongoose;
@@ -20,6 +19,8 @@ export const emotionFamilies = [
   "Gemischte Gefühle",
 ];
 const tagCategories = ["wann", "wo", "mit wem", "was", "kontext"];
+
+const weatherOptions = ["sonnig", "bewölkt", "regnerisch", "gemischt"];
 
 const checkinSchema = new Schema(
   {
@@ -73,7 +74,7 @@ const checkinSchema = new Schema(
     },
     sleepingHours: Number,
     physicalActivity: Boolean,
-    weather: String,
+    weather: { type: String, enum: weatherOptions },
   },
   { timestamps: { createdAt: true, updatedAt: false }, versionKey: false }
 );

@@ -6,14 +6,6 @@ const { Schema, model } = mongoose;
 
 const usernameValidator = (username) => username.length <= 12;
 const emailValidator = (email) => validator.isEmail(email);
-const passwordValidator = (password) =>
-  validator.isStrongPassword(password, {
-    minLength: 8,
-    minLowercase: 1,
-    minNumbers: 1,
-    minSymbols: 1,
-    minUppercase: 0,
-  });
 
 const sanitize = (text) => {
   return sanitizeHtml(text, { allowedTags: [], allowedAttributes: {} });
@@ -41,14 +33,14 @@ const userSchema = new Schema(
     password: {
       type: String,
       required: true,
-      validate: {
-        validator: passwordValidator,
-        message:
-          "Password must consist of at least 8 characters, including at least one lowercase character, one number and one special character",
-      },
+      // VALIDATION HAPPENS IN CONTROLLER
     },
     isVerified: { type: Boolean, default: false },
-    verificationToken: { type: String, required: true },
+    verificationToken: {
+      type: String,
+      required: true,
+      set: (token) => sanitize(token),
+    },
     config: {
       sleepingHours: { type: Boolean, default: true },
       physicalActivity: { type: Boolean, default: true },

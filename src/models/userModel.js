@@ -36,11 +36,13 @@ const userSchema = new Schema(
       // VALIDATION HAPPENS IN CONTROLLER
     },
     isVerified: { type: Boolean, default: false },
+
     verificationToken: {
       type: String,
       required: true,
       set: (token) => sanitize(token),
     },
+
     config: {
       sleepingHours: { type: Boolean, default: true },
       physicalActivity: { type: Boolean, default: true },

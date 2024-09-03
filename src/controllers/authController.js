@@ -2,11 +2,6 @@ import { hash, compare } from "../utils/crypto.js";
 import { User } from "../models/userModel.js";
 import { generateAccessToken } from "../utils/jwt.js";
 import crypto from "crypto";
-import dotenv from "dotenv";
-
-dotenv.config({ path: "../.env" });
-
-const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET;
 
 // REGISTRATION
 
@@ -107,7 +102,7 @@ export const login = async (req, res, next) => {
       });
 
     // GENERATE ACCESS TOKEN
-    const accessToken = generateAccessToken(user._id, accessTokenSecret);
+    const accessToken = generateAccessToken(user._id);
 
     if (!accessToken)
       return res.status(500).json({

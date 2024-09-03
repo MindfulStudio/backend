@@ -5,7 +5,7 @@ import { emotionFamilies } from "../models/checkinModel.js";
 
 export const getStatisticsByFamily = async (req, res, next) => {
   try {
-    const { userId } = req.params;
+    const { userId } = req.user;
     const { family } = req.query;
 
     // FIND USER
@@ -67,7 +67,7 @@ export const getStatisticsByFamily = async (req, res, next) => {
 
 export const getStatisticsByTag = async (req, res, next) => {
   try {
-    const { userId } = req.params;
+    const { userId } = req.user;
     const { tag } = req.query;
 
     const user = await User.findById(userId).populate("checkins");

@@ -1,5 +1,6 @@
 import express from "express";
 
+import { authenticationMiddleware } from "../middlewares/authenticationMiddleware.js";
 import {
   getSingleUser,
   postUser,
@@ -11,10 +12,13 @@ import {
 
 export const userRouter = express.Router();
 
-userRouter.route("/").post(postUser);
 userRouter
-  .route("/:userId")
-  .get(getSingleUser)
-  .patch(updateUser)
-  .delete(deleteUser);
-userRouter.route("/:userId/customs").get(getAllCustoms).patch(deactivateCustom);
+  .route("/")
+  .post(postUser)
+  .get(authenticationMiddleware, getSingleUser)
+  .patch(authenticationMiddleware, updateUser)
+  .delete(authenticationMiddleware, deleteUser);
+userRouter
+  .route("/customs")
+  .get(authenticationMiddleware, getAllCustoms)
+  .patch(authenticationMiddleware, deactivateCustom);

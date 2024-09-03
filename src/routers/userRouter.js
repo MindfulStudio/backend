@@ -3,6 +3,7 @@ import express from "express";
 import {
   getSingleUser,
   postUser,
+  verifyUser,
   updateUser,
   deleteUser,
   getAllCustoms,
@@ -11,10 +12,11 @@ import {
 
 export const userRouter = express.Router();
 
-userRouter.route("/").post(postUser);
 userRouter
-  .route("/:userId")
+  .route("/")
+  .post(postUser)
   .get(getSingleUser)
   .patch(updateUser)
   .delete(deleteUser);
-userRouter.route("/:userId/customs").get(getAllCustoms).patch(deactivateCustom);
+userRouter.route("/verify").get(verifyUser);
+userRouter.route("/customs").get(getAllCustoms).patch(deactivateCustom);

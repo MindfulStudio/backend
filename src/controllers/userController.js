@@ -23,6 +23,7 @@ export const getSingleUser = async (req, res, next) => {
   }
 };
 
+
 // UPDATE USER
 
 export const updateUser = async (req, res, next) => {

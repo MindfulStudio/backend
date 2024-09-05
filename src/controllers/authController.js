@@ -2,6 +2,7 @@ import { hash, compare } from "../utils/crypto.js";
 import { User } from "../models/userModel.js";
 import { generateAccessToken } from "../utils/jwt.js";
 import crypto from "crypto";
+import { sendVerificationLink } from "../utils/sendVerificationEmail.js";
 
 // REGISTRATION
 
@@ -52,9 +53,45 @@ export const register = async (req, res, next) => {
       verificationToken, // ADD VERIFICATION TOKEN
     });
 
+    // SEND VERIFICATION EMAIL
+    sendVerificationLink(user.email, user.username, verificationToken);
+
     res
       .status(201)
-      .json({ message: `User [${user.username}] created successfully` });
+      .json({
+        message: `User [${user.username}] created successfully; verification email has been sent`,
+      });
+  } catch (error) {
+    next(error);
+  }
+};
+
+// VERIFY 
+
+export const verify = async (req, res, next) => {
+  try {
+    const { token } = req.query;
+
+    if (!token) {
+      return res.status(401).json({
+        error: "verificationTokenMissing",
+        message: "Verification token is missing",
+      });
+    }
+
+    const user = await User.findOneAndUpdate(
+      { verificationToken: token },
+      { isVerified: true }
+    );
+
+    if (!user) {
+      return res.status(404).json({
+        error: "userNotFoundByToken",
+        message: `User with verification token [${token}] not found`,
+      });
+    }
+
+    res.status(200).json({ message: "Verification successfully completed" });
   } catch (error) {
     next(error);
   }

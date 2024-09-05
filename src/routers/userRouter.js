@@ -20,4 +20,3 @@ userRouter
   .route("/customs")
   .get(authenticationMiddleware, getAllCustoms)
   .patch(authenticationMiddleware, deactivateCustom);
-

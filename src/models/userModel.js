@@ -42,8 +42,8 @@ const userSchema = new Schema(
       required: true,
       set: (token) => sanitize(token),
     },
-
     config: {
+      isConfigured: { type: Boolean, default: false },
       sleepingHours: { type: Boolean, default: true },
       physicalActivity: { type: Boolean, default: true },
       weather: { type: Boolean, default: true },

@@ -20,7 +20,7 @@ export const emotionFamilies = [
 ];
 const tagCategories = ["wann", "wo", "mit wem", "was", "kontext"];
 
-const weatherOptions = ["sonnig", "bewölkt", "regnerisch", "gemischt"];
+const weatherOptions = ["sonnig", "bewölkt", "regnerisch", "wechselhaft"];
 
 const checkinSchema = new Schema(
   {
@@ -72,9 +72,11 @@ const checkinSchema = new Schema(
         message: "Comment too long (maximum: 200 characters)",
       },
     },
-    sleepingHours: Number,
-    physicalActivity: Boolean,
-    weather: { type: String, enum: weatherOptions },
+    config: {
+      sleepingHours: Number,
+      physicalActivity: Boolean,
+      weather: { type: String, enum: weatherOptions },
+    },
   },
   { timestamps: { createdAt: true, updatedAt: false }, versionKey: false }
 );

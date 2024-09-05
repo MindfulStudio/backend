@@ -18,5 +18,5 @@ userRouter
   .get(getSingleUser)
   .patch(updateUser)
   .delete(deleteUser);
-userRouter.route("/verify").get(verifyUser);
+userRouter.route("/verify").patch(verifyUser);
 userRouter.route("/customs").get(getAllCustoms).patch(deactivateCustom);

@@ -8,4 +8,4 @@ authRouter.route("/register").post(register);
 // REGISTER
 authRouter.route("/login").post(login);
 // LOGOUT
-authRouter.route("/logout").get(logout);
+authRouter.route("/logout").post(logout);

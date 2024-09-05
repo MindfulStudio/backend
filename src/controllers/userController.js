@@ -7,9 +7,16 @@ import { Checkin } from "../models/checkinModel.js";
 
 export const getSingleUser = async (req, res, next) => {
   try {
-    const {userId} = req.user
+    const { userId } = req.user;
     const user = await User.findById(userId);
-    if (userNotFound(res, user, userId)) return; // ABORT IF USER NOT FOUND
+
+    if (!user) {
+      return res.status(404).json({
+        error: "userNotFound",
+        message: `User with id [${userId}] not found`,
+      });
+    }
+
     res.status(200).json({ data: user });
   } catch (error) {
     next(error);
@@ -20,7 +27,7 @@ export const getSingleUser = async (req, res, next) => {
 
 export const updateUser = async (req, res, next) => {
   try {
-    const {userId} = req.user
+    const { userId } = req.user;
     const update = req.body;
     const options = {
       new: true,
@@ -45,8 +52,8 @@ export const updateUser = async (req, res, next) => {
 
 export const deleteUser = async (req, res, next) => {
   try {
-    const {userId} = req.user
-        const user = await User.findById(userId);
+    const { userId } = req.user;
+    const user = await User.findById(userId);
     if (!user) {
       return res.status(404).json({
         error: "userNotFound",
@@ -75,7 +82,7 @@ export const deleteUser = async (req, res, next) => {
 
 export const getAllCustoms = async (req, res, next) => {
   try {
-const {userId} = req.user
+    const { userId } = req.user;
     const user = await User.findById(userId).populate("checkins");
     if (!user) {
       return res.status(404).json({
@@ -111,7 +118,7 @@ const {userId} = req.user
 
 export const deactivateCustom = async (req, res, next) => {
   try {
-const {userId} = req.user
+    const { userId } = req.user;
     const { type, name } = req.body;
     if (!type || !name) {
       return res.status(400).json({

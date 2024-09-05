@@ -83,7 +83,7 @@ export const login = async (req, res, next) => {
     const passwordCheck = await compare(password, user.password);
 
     if (!passwordCheck)
-      return res.status(400).json({
+      return res.status(401).json({
         error: "invalidPassword",
         message: `Password is invalid`,
       });
@@ -118,9 +118,10 @@ export const login = async (req, res, next) => {
       secure: true,
     });
 
-    res
-      .status(200)
-      .json({ message: `Login with user id [${user._id}] successfull.` });
+    res.status(200).json({
+      message: `Login with user id [${user._id}] successfull.`,
+      data: { isConfigured: user.config.isConfigured },
+    });
   } catch (error) {
     next(error);
   }

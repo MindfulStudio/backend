@@ -3,7 +3,6 @@ import express from "express";
 import { authenticationMiddleware } from "../middlewares/authenticationMiddleware.js";
 import {
   getSingleUser,
-  verifyUser,
   updateUser,
   deleteUser,
   getAllCustoms,
@@ -17,9 +16,7 @@ userRouter
   .get(authenticationMiddleware, getSingleUser)
   .patch(authenticationMiddleware, updateUser)
   .delete(authenticationMiddleware, deleteUser);
-userRouter.route("/verify").get(verifyUser);
 userRouter
   .route("/customs")
   .get(authenticationMiddleware, getAllCustoms)
   .patch(authenticationMiddleware, deactivateCustom);
-

@@ -1,5 +1,10 @@
 import express from "express";
-import { login, logout, register } from "../controllers/authController.js";
+import {
+  login,
+  logout,
+  register,
+  verify,
+} from "../controllers/authController.js";
 
 export const authRouter = express.Router();
 
@@ -7,5 +12,7 @@ export const authRouter = express.Router();
 authRouter.route("/register").post(register);
 // REGISTER
 authRouter.route("/login").post(login);
+// VERIFY
+authRouter.route("/verify").get(verify);
 // LOGOUT
 authRouter.route("/logout").post(logout);

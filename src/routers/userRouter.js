@@ -1,8 +1,8 @@
 import express from "express";
 
+import { authenticationMiddleware } from "../middlewares/authenticationMiddleware.js";
 import {
   getSingleUser,
-  postUser,
   verifyUser,
   updateUser,
   deleteUser,
@@ -14,9 +14,12 @@ export const userRouter = express.Router();
 
 userRouter
   .route("/")
-  .post(postUser)
-  .get(getSingleUser)
-  .patch(updateUser)
-  .delete(deleteUser);
+  .get(authenticationMiddleware, getSingleUser)
+  .patch(authenticationMiddleware, updateUser)
+  .delete(authenticationMiddleware, deleteUser);
 userRouter.route("/verify").get(verifyUser);
-userRouter.route("/customs").get(getAllCustoms).patch(deactivateCustom);
+userRouter
+  .route("/customs")
+  .get(authenticationMiddleware, getAllCustoms)
+  .patch(authenticationMiddleware, deactivateCustom);
+

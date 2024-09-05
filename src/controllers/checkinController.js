@@ -4,8 +4,7 @@ import { User } from "../models/userModel.js";
 // GET ALL CHECK-INS
 export const getAllCheckins = async (req, res, next) => {
   try {
-    const { userId } = req.params;
-
+    const { userId } = req.user;
     const user = await User.findById(userId).populate("checkins");
 
     if (!user) {
@@ -24,8 +23,7 @@ export const getAllCheckins = async (req, res, next) => {
 // GET CHECK-INS FROM TODAY
 export const getCheckinsFromToday = async (req, res, next) => {
   try {
-    const { userId } = req.params;
-
+    const { userId } = req.user;
     const user = await User.findById(userId).populate("checkins");
 
     if (!user) {
@@ -53,7 +51,8 @@ export const getCheckinsFromToday = async (req, res, next) => {
 // GET SINGLE CHECK-IN
 export const getSingleCheckin = async (req, res, next) => {
   try {
-    const { userId, checkinId } = req.params;
+    const { userId } = req.user;
+    const { checkinId } = req.params;
 
     const user = await User.findById(userId).populate("checkins");
 
@@ -83,7 +82,7 @@ export const getSingleCheckin = async (req, res, next) => {
 // CREATE CHECK-IN
 export const postCheckin = async (req, res, next) => {
   try {
-    const { userId } = req.params;
+    const { userId } = req.user;
     const checkin = req.body;
 
     // CREATE NEW CHECK-IN DOCUMENT

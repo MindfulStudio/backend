@@ -1,7 +1,14 @@
 import express from "express";
-import { getStatisticsByFamily,getStatisticsByTag} from "../controllers/statsController.js";
+
+import { authenticationMiddleware } from "../middlewares/authenticationMiddleware.js";
+import {
+  getStatisticsByFamily,
+  getStatisticsByTag,
+} from "../controllers/statsController.js";
 
 export const statsRouter = express.Router({ mergeParams: true });
 
-statsRouter.route("/family").get(getStatisticsByFamily);
-statsRouter.route("/tag").get(getStatisticsByTag);
+statsRouter
+  .route("/family")
+  .get(authenticationMiddleware, getStatisticsByFamily);
+statsRouter.route("/tag").get(authenticationMiddleware, getStatisticsByTag);

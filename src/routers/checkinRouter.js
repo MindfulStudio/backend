@@ -1,12 +1,10 @@
 import express from "express";
 
 import { authenticationMiddleware } from "../middlewares/authenticationMiddleware.js";
-import {
-  getAllCheckins,
-  getSingleCheckin,
-  postCheckin,
-  getCheckinsFromToday,
-} from "../controllers/checkinController.js";
+import { getAllCheckins } from "../controllers/checkin/getAllCheckins.js";
+import { getCheckinsFromToday } from "../controllers/checkin/getCheckinsFromToday.js";
+import { getSingleCheckin } from "../controllers/checkin/getSingleCheckin.js";
+import { postCheckin } from "../controllers/checkin/postCheckin.js";
 
 export const checkinRouter = express.Router({ mergeParams: true });
 

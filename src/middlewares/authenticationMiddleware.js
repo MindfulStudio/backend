@@ -1,7 +1,7 @@
 import { jwtVerify } from "../utils/jwt.js";
 import dotenv from "dotenv";
 
-dotenv.config();
+dotenv.config({ path: "../.env" });
 
 const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET;
 
@@ -16,7 +16,7 @@ export const authenticationMiddleware = async (req, res, next) => {
         message: "Cookie is missing or has expanded.",
       });
     }
-    
+
     if (!accessTokenSecret)
       return res.status(500).json({
         error: "envError",

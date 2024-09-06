@@ -1,11 +1,9 @@
 import express from "express";
 
 import { authenticationMiddleware } from "../middlewares/authenticationMiddleware.js";
-import {
-  getSingleUser,
-  updateUser,
-  deleteUser,
-} from "../controllers/userController.js";
+import { getSingleUser } from "../controllers/user/getSingleUser.js";
+import { updateUser } from "../controllers/user/updateUser.js";
+import { deleteUser } from "../controllers/user/deleteUser.js";
 
 export const userRouter = express.Router();
 

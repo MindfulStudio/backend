@@ -1,10 +1,8 @@
 import express from "express";
-import {
-  login,
-  logout,
-  register,
-  verify,
-} from "../controllers/authController.js";
+import { register } from "../controllers/auth/register.js";
+import { verify } from "../controllers/auth/verify.js";
+import { login } from "../controllers/auth/login.js";
+import { logout } from "../controllers/auth/logout.js";
 
 export const authRouter = express.Router();
 

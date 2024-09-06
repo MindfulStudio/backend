@@ -1,6 +1,7 @@
 import dotenv from "dotenv";
 import express from "express";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 
 import { appRouter } from "./routers/appRouter.js";
 import { errorMiddleware } from "./middlewares/errorMiddleware.js";
@@ -27,6 +28,9 @@ app.use(
     credentials: true,
   })
 );
+
+// COOKIE PARSER
+app.use(cookieParser());
 
 // ROUTES
 app.use("/", appRouter);

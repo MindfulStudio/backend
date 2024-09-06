@@ -3,8 +3,13 @@ import express from "express";
 import { userRouter } from "./userRouter.js";
 import { checkinRouter } from "./checkinRouter.js";
 import { statsRouter } from "./statsRouter.js";
+import { authRouter } from "./authRouter.js";
+import { customRouter } from "./customRouter.js";
 
 export const appRouter = express.Router();
+
+appRouter.use("/auth", authRouter);
 appRouter.use("/users", userRouter);
-appRouter.use("/users/:userId/checkins", checkinRouter);
-appRouter.use("/users/:userId/stats", statsRouter);
+appRouter.use("/user/checkins", checkinRouter);
+appRouter.use("/user/stats", statsRouter);
+appRouter.use("/user/customs", customRouter);

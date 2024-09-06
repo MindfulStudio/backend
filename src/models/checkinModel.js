@@ -1,6 +1,15 @@
-import mongoose from "mongoose";
+import mongoose, { set } from "mongoose";
+import sanitizeHtml from "sanitize-html";
 
 const { Schema, model } = mongoose;
+
+const emotionNameValidator = (name) => name.length <= 18;
+const tagNameValidator = (name) => name.length <= 18;
+const commentValidator = (comment) => comment.length <= 200;
+
+const sanitize = (text) => {
+  return sanitizeHtml(text, { allowedTags: [], allowedAttributes: {} });
+};
 
 export const emotionFamilies = [
   "Anspannung",
@@ -11,9 +20,10 @@ export const emotionFamilies = [
 ];
 const tagCategories = ["wann", "wo", "mit wem", "was", "kontext"];
 
+const weatherOptions = ["sonnig", "bewölkt", "regnerisch", "wechselhaft"];
+
 const checkinSchema = new Schema(
   {
-    // checkinsToday: { type: Number }, // NECESSARY?
     emotion: {
       family: {
         type: String,
@@ -23,6 +33,11 @@ const checkinSchema = new Schema(
       name: {
         type: String,
         required: true,
+        set: (name) => sanitize(name),
+        validate: {
+          validator: emotionNameValidator,
+          message: "Emotion name too long (maximum: 18 characters)",
+        },
       },
       isDefault: { type: Boolean, default: true },
       isActive: { type: Boolean, default: true },
@@ -34,16 +49,34 @@ const checkinSchema = new Schema(
           enum: tagCategories,
           required: true,
         },
-        name: { type: String, required: true },
+        name: {
+          type: String,
+          required: true,
+          set: (name) => sanitize(name),
+          validate: {
+            validator: tagNameValidator,
+            message: "Tag name too long (maximum: 18 characters)",
+          },
+        },
         isDefault: { type: Boolean, default: true },
         isActive: { type: Boolean, default: true },
         _id: false,
       },
     ],
-    comment: { type: String, default: null },
-    sleepingHours: Number,
-    physicalActivity: Boolean,
-    weather: String,
+    comment: {
+      type: String,
+      default: null,
+      set: (comment) => sanitize(comment),
+      validate: {
+        validator: commentValidator,
+        message: "Comment too long (maximum: 200 characters)",
+      },
+    },
+    config: {
+      sleepingHours: Number,
+      physicalActivity: Boolean,
+      weather: { type: String, enum: weatherOptions },
+    },
   },
   { timestamps: { createdAt: true, updatedAt: false }, versionKey: false }
 );

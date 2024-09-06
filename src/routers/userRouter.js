@@ -1,20 +1,14 @@
 import express from "express";
 
-import {
-  getSingleUser,
-  postUser,
-  updateUser,
-  deleteUser,
-  getAllCustoms,
-  deactivateCustom,
-} from "../controllers/userController.js";
+import { authenticationMiddleware } from "../middlewares/authenticationMiddleware.js";
+import { getSingleUser } from "../controllers/user/getSingleUser.js";
+import { updateUser } from "../controllers/user/updateUser.js";
+import { deleteUser } from "../controllers/user/deleteUser.js";
 
 export const userRouter = express.Router();
 
-userRouter.route("/").post(postUser);
 userRouter
-  .route("/:userId")
-  .get(getSingleUser)
-  .patch(updateUser)
-  .delete(deleteUser);
-userRouter.route("/:userId/customs").get(getAllCustoms).patch(deactivateCustom);
+  .route("/")
+  .get(authenticationMiddleware, getSingleUser)
+  .patch(authenticationMiddleware, updateUser)
+  .delete(authenticationMiddleware, deleteUser);

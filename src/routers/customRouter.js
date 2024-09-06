@@ -4,7 +4,7 @@ import { authenticationMiddleware } from "../middlewares/authenticationMiddlewar
 import {
   getAllCustoms,
   deactivateCustom,
-} from "../controllers/customsController.js";
+} from "../controllers/customController.js";
 
 export const customRouter = express.Router({ mergeParams: true });
 

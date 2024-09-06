@@ -9,5 +9,6 @@ export const appRouter = express.Router();
 
 appRouter.use("/auth", authRouter);
 appRouter.use("/users", userRouter);
-appRouter.use("/users/checkins", checkinRouter);
-appRouter.use("/users/stats", statsRouter);
+appRouter.use("/user/checkins", checkinRouter);
+appRouter.use("/user/stats", statsRouter);
+appRouter.use("/user/customs", customRouter);

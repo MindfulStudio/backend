@@ -3,6 +3,11 @@ import { User } from "../models/userModel.js";
 import { generateAccessToken } from "../utils/jwt.js";
 import crypto from "crypto";
 import { sendVerificationLink } from "../utils/sendVerificationEmail.js";
+import dotenv from "dotenv";
+
+dotenv.config();
+
+const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET;
 
 // REGISTRATION
 
@@ -56,17 +61,15 @@ export const register = async (req, res, next) => {
     // SEND VERIFICATION EMAIL
     sendVerificationLink(user.email, user.username, verificationToken);
 
-    res
-      .status(201)
-      .json({
-        message: `User [${user.username}] created successfully; verification email has been sent`,
-      });
+    res.status(201).json({
+      message: `User [${user.username}] created successfully; verification email has been sent`,
+    });
   } catch (error) {
     next(error);
   }
 };
 
-// VERIFY 
+// VERIFY
 
 export const verify = async (req, res, next) => {
   try {
@@ -139,7 +142,7 @@ export const login = async (req, res, next) => {
       });
 
     // GENERATE ACCESS TOKEN
-    const accessToken = generateAccessToken(user._id);
+    const accessToken = generateAccessToken(user._id, accessTokenSecret);
 
     if (!accessToken)
       return res.status(500).json({
@@ -149,7 +152,7 @@ export const login = async (req, res, next) => {
 
     // SET COOKIE
     res.cookie("accessToken", accessToken, {
-      maxAge: 600 * 1000,
+      maxAge: 3600 * 1000,
       httpOnly: true,
       sameSite: "None",
       secure: true,

@@ -4,6 +4,7 @@ import { userRouter } from "./userRouter.js";
 import { checkinRouter } from "./checkinRouter.js";
 import { statsRouter } from "./statsRouter.js";
 import { authRouter } from "./authRouter.js";
+import { customRouter } from "./customRouter.js";
 
 export const appRouter = express.Router();
 

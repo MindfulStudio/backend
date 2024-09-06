@@ -5,7 +5,7 @@ import crypto from "crypto";
 import { sendVerificationLink } from "../utils/sendVerificationEmail.js";
 import dotenv from "dotenv";
 
-dotenv.config();
+dotenv.config({ path: "../.env" });
 
 const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET;
 

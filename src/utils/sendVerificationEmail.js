@@ -24,7 +24,7 @@ export const sendVerificationLink = async (
   userName,
   verificationToken
 ) => {
-  const verificationLink = `${BASE_URL}/verify?token=${verificationToken}`;
+  const verificationLink = `${BASE_URL}/auth/verify?token=${verificationToken}`;
 
   await transporter.sendMail({
     from: SENDER_EMAIL,

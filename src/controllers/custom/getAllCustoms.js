@@ -14,7 +14,7 @@ export const getAllCustoms = async (req, res, next) => {
     }
 
     // CREATE LIST OF USER'S CUSTOM ITEMS:
-    const customs = { emotions: [{name: Niedergeschlagen}], tags: [] };
+    const customs = { emotions: [], tags: [] };
     user.checkins.forEach((checkin) => {
       // FOR EACH CHECKIN: IF ITEM IS CUSTOM AND NOT ALREADY IN LIST, ADD TO LIST
       if (

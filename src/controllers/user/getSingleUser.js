@@ -14,7 +14,7 @@ export const getSingleUser = async (req, res, next) => {
       });
     }
     const { config, _id, username, email } = user;
-    res.status(200).json({ data: { config, id: _id, username, email } });
+    res.status(200).json({ data: { config, username, email } });
   } catch (error) {
     next(error);
   }

@@ -5,7 +5,8 @@ import { hash } from "../utils/crypto.js";
 
 const { Schema, model } = mongoose;
 
-const usernameValidator = (username) => username.length <= 12;
+const usernameValidator = (username) =>
+  username.length >= 3 && username.length <= 12;
 const emailValidator = (email) => validator.isEmail(email);
 
 const sanitize = (text) => {

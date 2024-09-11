@@ -1,6 +1,7 @@
-import mongoose, { set } from "mongoose";
+import mongoose from "mongoose";
 import validator from "validator";
 import sanitizeHtml from "sanitize-html";
+import { hash } from "../utils/crypto.js";
 
 const { Schema, model } = mongoose;
 
@@ -33,7 +34,14 @@ const userSchema = new Schema(
     password: {
       type: String,
       required: true,
-      // VALIDATION HAPPENS IN CONTROLLER
+      validate: {
+        validator: (password) => {
+          const passwordRegex =
+            /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@.#$!%*?&^_])[A-Za-z\d@.#$!%*?&^_]{8,}$/;
+          return passwordRegex.test(password);
+        },
+        message: "Password format is invalid",
+      },
     },
     isVerified: { type: Boolean, default: false },
 
@@ -57,5 +65,26 @@ const userSchema = new Schema(
 
   { versionKey: false }
 );
+
+// HASHING BEFORE SAVING
+userSchema.pre("save", async function (next) {
+  const user = this;
+  // IF PASSWORD CHANGES...
+  if (user.isModified("password")) {
+    try {
+      // ...HASH THE PASSWORD
+      const hashedPassword = await hash(user.password);
+      if (!hashedPassword) throw new Error("Error on hashing");
+      // CHANGE THE PASSWORD WITH THE HASHED ONE
+      user.password = hashedPassword;
+    } catch (error) {
+      console.error(error);
+      // FORWARD THE ERROR TO ERROR MIDDLEWARE
+      return next(error);
+    }
+  }
+  // CONTINUE WITH SAVING
+  next();
+});
 
 export const User = model("User", userSchema);

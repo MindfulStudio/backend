@@ -20,7 +20,15 @@ export const emotionFamilies = [
 ];
 const tagCategories = ["wann", "wo", "mitWem", "was"];
 
-const weatherOptions = ["sonnig", "bewölkt", "regnerisch", "wechselhaft"];
+const weatherOptions = [
+  "sonnig",
+  "bewölkt",
+  "regnerisch",
+  "wechselhaft",
+  "stürmisch",
+  "windig",
+  "schneit",
+];
 
 const checkinSchema = new Schema(
   {

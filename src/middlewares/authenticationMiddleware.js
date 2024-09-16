@@ -10,8 +10,9 @@ const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET;
 export const authenticationMiddleware = async (req, res, next) => {
   try {
     const token = req.cookies["accessToken"];
+
     if (!token) {
-      return res.status(400).json({
+      return res.status(401).json({
         error: "cookieIsMissing",
         message: "Cookie is missing or has expanded.",
       });
@@ -26,7 +27,7 @@ export const authenticationMiddleware = async (req, res, next) => {
     const verification = jwtVerify(token, accessTokenSecret);
 
     if (!verification) {
-      return res.status(400).json({
+      return res.status(401).json({
         error: "verificationHasFailed",
         message: "Cookie could not be verified.",
       });

@@ -18,7 +18,7 @@ export const emotionFamilies = [
   "Entspannung",
   "Gemischte Gefühle",
 ];
-const tagCategories = ["wann", "wo", "mit wem", "was", "kontext"];
+const tagCategories = ["wann", "wo", "mitWem", "was"];
 
 const weatherOptions = ["sonnig", "bewölkt", "regnerisch", "wechselhaft"];
 

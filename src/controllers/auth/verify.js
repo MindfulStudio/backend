@@ -1,4 +1,9 @@
 import { User } from "../../models/userModel.js";
+import dotenv from "dotenv";
+
+dotenv.config({ path: "../.env" });
+
+const BASE_URL_FRONTEND = process.env.BASE_URL_FRONTEND;
 
 // VERIFY
 
@@ -24,8 +29,7 @@ export const verify = async (req, res, next) => {
         message: `User with verification token [${token}] not found`,
       });
     }
-
-    res.status(200).json({ message: "Verification successfully completed" });
+    res.redirect(`${BASE_URL_FRONTEND}/anmeldung`);
   } catch (error) {
     next(error);
   }

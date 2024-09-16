@@ -1,8 +1,8 @@
 import express from "express";
 
 import { authenticationMiddleware } from "../middlewares/authenticationMiddleware.js";
-import { getAllCustoms } from "../controllers/custom/deactivateCustom.js";
-import { deactivateCustom } from "../controllers/custom/customController.js";
+import { getAllCustoms } from "../controllers/custom/getAllCustoms.js";
+import { deactivateCustom } from "../controllers/custom/deactivateCustom.js";
 
 export const customRouter = express.Router({ mergeParams: true });
 

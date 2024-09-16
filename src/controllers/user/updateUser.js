@@ -20,7 +20,7 @@ export const updateUser = async (req, res, next) => {
     const { config, _id, username, email } = user;
     res.status(200).json({
       message: `User with id [${userId}] updated`,
-      data: { config, id: _id, username, email },
+      data: { id: _id },
     });
   } catch (error) {
     next(error);

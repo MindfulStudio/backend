@@ -4,6 +4,7 @@ import { verify } from "../controllers/auth/verify.js";
 import { login } from "../controllers/auth/login.js";
 import { logout } from "../controllers/auth/logout.js";
 import { captcha } from "../middlewares/captcha.js";
+import { authenticationMiddleware } from "../middlewares/authenticationMiddleware.js";
 
 export const authRouter = express.Router();
 
@@ -15,3 +16,9 @@ authRouter.route("/login").post(login);
 authRouter.route("/verify").get(verify);
 // LOGOUT
 authRouter.route("/logout").post(logout);
+// VERIFY COOKIE FOR REDIRECTING
+authRouter
+  .route("/verifyCookie")
+  .get(authenticationMiddleware, async (req, res, next) => {
+    res.status(200).json({ isValid: true });
+  });

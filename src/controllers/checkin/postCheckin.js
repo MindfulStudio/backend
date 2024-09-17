@@ -9,6 +9,7 @@ export const postCheckin = async (req, res, next) => {
 
     // CREATE NEW CHECK-IN DOCUMENT
     const newCheckin = new Checkin(checkin);
+
     // FIND USER
     const user = await User.findById(userId);
 
@@ -25,8 +26,10 @@ export const postCheckin = async (req, res, next) => {
     await newCheckin.save();
 
     // SAVE CHANGES IN USER DOCUMENT
-    await user.save();
-
+    await User.updateOne(
+      { _id: userId },
+      { $push: { checkins: newCheckin._id } }
+    );
     res.status(201).json({
       message: "Check-in created succesfully",
       data: newCheckin,

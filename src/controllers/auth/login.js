@@ -11,7 +11,7 @@ const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET;
 
 export const login = async (req, res, next) => {
   try {
-    const { email, password } = req.body;
+    const { email, password, stayLoggedIn } = req.body;
 
     if (!email || !password)
       return res
@@ -59,9 +59,9 @@ export const login = async (req, res, next) => {
 
     // SET COOKIE
     res.cookie("accessToken", accessToken, {
-      maxAge: 3600 * 1000,
+      maxAge: stayLoggedIn ? 604800000 : 0, // cookie stays for 7 days if user wants to stay logged in
       httpOnly: true,
-      sameSite: "None",
+      sameSite: "Strict",
       secure: true,
     });
 

@@ -45,8 +45,16 @@ export const getStatisticsByFamily = async (req, res, next) => {
     checkinsByFamily.forEach((checkin) => {
       // ...AND FOR EACH TAG IN THIS CHECK IN...
       checkin.tags.forEach((tag) => {
-        // ...PUSH CATEGORY AND NAME INTO STATS IN DATA TEMPLATE
-        data.stats.push({ category: tag.category, name: tag.name });
+        //...CHECK IF THE STATISTIC FOR THIS FAMILY AND NAME ALREADY EXISTS IN STAT ARRAY...
+        const existingStat = data.stats.find(
+          (stat) => stat.category === tag.category && stat.name === tag.name
+        );
+        //...IF YES INCREMENT THE COUNT
+        if (existingStat) {
+          existingStat.count++;
+        } else {
+          data.stats.push({ category: tag.category, name: tag.name, count: 1 });
+        }
       });
     });
 

@@ -49,7 +49,11 @@ export const login = async (req, res, next) => {
       });
 
     // GENERATE ACCESS TOKEN
-    const accessToken = generateAccessToken(user._id, accessTokenSecret);
+    const accessToken = generateAccessToken(
+      user._id,
+      accessTokenSecret,
+      stayLoggedIn
+    );
 
     if (!accessToken)
       return res.status(500).json({

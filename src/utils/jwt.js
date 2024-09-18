@@ -7,7 +7,7 @@ export const generateAccessToken = (
   stayLoggedIn
 ) => {
   return jwt.sign({ userId }, accessTokenSecret, {
-    expiresIn: stayLoggedIn ? "7d" : undefined,
+    expiresIn: stayLoggedIn ? "7d" : "1h",
   });
 };
 

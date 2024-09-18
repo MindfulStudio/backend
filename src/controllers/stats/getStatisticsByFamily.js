@@ -41,6 +41,7 @@ export const getStatisticsByFamily = async (req, res, next) => {
     // PUSH ALL TAGS IN THESE CHECKINS INTO THE MAP
     checkinsByFamily.forEach((checkin) =>
       checkin.tags.forEach((tag) => {
+        console.log("tag", tag);
         // IF IT ALREADY EXISTS...
         if (tagsMap.has(tag.name)) {
           // ...CHANGE THE VALUE OF MAP ELEMENT...
@@ -54,7 +55,7 @@ export const getStatisticsByFamily = async (req, res, next) => {
     );
 
     // CONVERT THE MAP TO AN ARRAY
-    data.stats = Array.from(tagsMap, ([name, count]) => ({ name, count }));
+    data.stats = Array.from(tagsMap, ([name, count, category]) => ({ name, count, category }));
 
     res.status(200).json({ data });
   } catch (error) {

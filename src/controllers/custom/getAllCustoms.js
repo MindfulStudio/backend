@@ -16,16 +16,17 @@ export const getAllCustoms = async (req, res, next) => {
     // CREATE LIST OF USER'S CUSTOM ITEMS:
     const customs = { emotions: [], tags: [] };
     user.checkins.forEach((checkin) => {
-      // FOR EACH CHECKIN: IF ITEM IS CUSTOM AND NOT ALREADY IN LIST, ADD TO LIST
-      if (
-        !checkin.emotion.isDefault &&
-        !customs.emotions.some((emo) => emo.name === checkin.emotion.name)
-      ) {
+      // FOR EACH CHECKIN: IF ITEM IS CUSTOM, ADD TO LIST WHILE REMOVING EARLIER VERSIONS
+      if (!checkin.emotion.isDefault) {
+        customs.emotions = customs.emotions.filter(
+          (emo) => emo.name !== checkin.emotion.name
+        );
         customs.emotions.push(checkin.emotion);
       }
-      // FOR EACH TAG: IF TAG IS CUSTOM AND NOT ALREADY IN LIST, ADD TO LIST
+      // FOR EACH TAG: IF ITEM IS CUSTOM, ADD TO LIST WHILE REMOVING EARLIER VERSIONS
       checkin.tags.forEach((tag) => {
-        if (!tag.isDefault && !customs.tags.some((t) => t.name === tag.name)) {
+        if (!tag.isDefault) {
+          customs.tags = customs.tags.filter((t) => t.name !== tag.name);
           customs.tags.push(tag);
         }
       });

@@ -42,10 +42,13 @@ export const getStatisticsByTag = async (req, res, next) => {
         }
       });
     });
+    const filteredStats = stats.filter((family) => family.count > 0);
 
     res
       .status(200)
-      .json({ data: { tag: tag, stats, total: checkinsByTag.length } });
+      .json({
+        data: { tag: tag, stats: filteredStats, total: checkinsByTag.length },
+      });
   } catch (error) {
     next(error);
   }

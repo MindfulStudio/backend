@@ -38,7 +38,7 @@ export const getStatisticsByFamily = async (req, res, next) => {
 
     // IF THERE IS NO CHECK IN WITH SELECTED FAMILY, RETURN THE DATA TEMPLATE WITH EMPTY STATS
     if (checkinsByFamily.length === 0) {
-      return res.status(404).json({ data });
+      return res.status(200).json({ data });
     }
 
     // FOR EACH CHECK IN BY SELECTED FAMILY NAME...

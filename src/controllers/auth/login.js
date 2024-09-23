@@ -49,7 +49,11 @@ export const login = async (req, res, next) => {
       });
 
     // GENERATE ACCESS TOKEN
-    const accessToken = generateAccessToken(user._id, accessTokenSecret);
+    const accessToken = generateAccessToken(
+      user._id,
+      accessTokenSecret,
+      stayLoggedIn
+    );
 
     if (!accessToken)
       return res.status(500).json({
@@ -59,7 +63,7 @@ export const login = async (req, res, next) => {
 
     // SET COOKIE
     res.cookie("accessToken", accessToken, {
-      maxAge: stayLoggedIn ? 604800000 : 0, // cookie stays for 7 days if user wants to stay logged in
+      maxAge: stayLoggedIn ? 604800000 : 3600000, // cookie stays for 7 days if user wants to stay logged in, otherwise for 1 hour
       httpOnly: true,
       sameSite: "Strict",
       secure: true,

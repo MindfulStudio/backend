@@ -5,7 +5,7 @@ dotenv.config({ path: "../.env" });
 
 const { SENDER_EMAIL, SENDER_PASSWORD } = process.env;
 const BASE_URL = process.env.BASE_URL || "http://localhost:3000";
-const appName = "[Name der App]";
+const appName = "gemischteGefühle";
 
 // CREATE TRANSPORTER
 const transporter = nodemailer.createTransport({

@@ -29,32 +29,34 @@ export const getStatisticsByFamily = async (req, res, next) => {
       (checkin) => checkin.emotion.family === family
     );
 
+    // DATA TEMPLATE TO FILL IN
     const data = {
-      family: family,
+      family,
       stats: [],
-      total: checkinsByFamily.length,
+      checkinsTotal: checkinsByFamily.length,
     };
 
-    // CREATE A NEW MAP OBJECT
-    const tagsMap = new Map();
+    // IF THERE IS NO CHECK IN WITH SELECTED FAMILY, RETURN THE DATA TEMPLATE WITH EMPTY STATS
+    if (checkinsByFamily.length === 0) {
+      return res.status(200).json({ data });
+    }
 
-    // PUSH ALL TAGS IN THESE CHECKINS INTO THE MAP
-    checkinsByFamily.forEach((checkin) =>
+    // FOR EACH CHECK IN BY SELECTED FAMILY NAME...
+    checkinsByFamily.forEach((checkin) => {
+      // ...AND FOR EACH TAG IN THIS CHECK IN...
       checkin.tags.forEach((tag) => {
-        // IF IT ALREADY EXISTS...
-        if (tagsMap.has(tag.name)) {
-          // ...CHANGE THE VALUE OF MAP ELEMENT...
-          tagsMap.set(tag.name, tagsMap.get(tag.name) + 1);
-          // ...IF IT DOESN'T EXIST...
+        //...CHECK IF THE STATISTIC FOR THIS FAMILY AND NAME ALREADY EXISTS IN STAT ARRAY...
+        const existingStat = data.stats.find(
+          (stat) => stat.category === tag.category && stat.name === tag.name
+        );
+        //...IF YES INCREMENT THE COUNT
+        if (existingStat) {
+          existingStat.count++;
         } else {
-          // ... CREATE A NEW ELEMENT WITH AN INITIAL VALUE
-          tagsMap.set(tag.name, 1);
+          data.stats.push({ category: tag.category, name: tag.name, count: 1 });
         }
-      })
-    );
-
-    // CONVERT THE MAP TO AN ARRAY
-    data.stats = Array.from(tagsMap, ([name, count]) => ({ name, count }));
+      });
+    });
 
     res.status(200).json({ data });
   } catch (error) {

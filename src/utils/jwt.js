@@ -1,9 +1,13 @@
 import jwt from "jsonwebtoken";
 
 // GENERATE ACCESS TOKEN:
-export const generateAccessToken = (userId, accessTokenSecret) => {
+export const generateAccessToken = (
+  userId,
+  accessTokenSecret,
+  stayLoggedIn
+) => {
   return jwt.sign({ userId }, accessTokenSecret, {
-    expiresIn: "1h",
+    expiresIn: stayLoggedIn ? "7d" : "1h",
   });
 };
 

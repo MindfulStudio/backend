@@ -117,7 +117,35 @@ Dies ist das Backend für eine Browser-App im Bereich der mentalen Gesundheit, d
 
 ## 📑 API-Dokumentation
 
-Die API-Dokumentation wird an dieser Stelle noch ergänzt.
+Die nachfolgende Übersicht fasst alle möglichen Operationen mit ihren dazugehörigen Endpoints, HTTP-Methoden und den im Body der Anfrage zu sendenden Informationen zusammen und zeigt auf, welche Antworten im Erfolgsfall und bei Fehlern vom Server zu erwarten sind.
+
+---
+
+### Authentifizierung
+
+| **Operation**           | **Endpoint**           | **HTTP-Methode** | **Body**                        | **Status** | **Fehlermeldungen**                                           |
+| ----------------------- | ---------------------- | ---------------- | ------------------------------- | ---------- | ------------------------------------------------------------- |
+| Registrierung           | `/auth/register`       | POST             | `{ username, email, password }` | 201        | `missingRegData` (400)                                        |
+| Login                   | `/auth/login`          | POST             | `{ email, password }`           | 200        | `missingCredentials` (400)                                    |
+| Logout                  | `/auth/logout`         | POST             | Keine                           | 200        | `cookieIsMissing` (400)                                       |
+| Verifizierung           | `/auth/verify`         | GET              | `?token=${verificationToken}`   | 200        | `verificationTokenMissing` (401), `userNotFoundByToken` (404) |
+| Zugangstoken generieren | `/auth/token`          | POST             | `{ refreshToken }`              | 200        | `envError`, `accTokenError` (500)                             |
+| Passwort zurücksetzen   | `/auth/reset-password` | POST             | `{ email }`                     | 200        | `missingCredentials` (400)                                    |
+
+**Hinweis: Für alle Endpunkte außerhalb der Authentifizierungs-Operationen ist eine gültige Sitzung erforderlich**. Diese Sitzung wird durch einen Cookie identifiziert, den man beim erfolgreichen Login über den Endpunkt `/auth/login` erhält.
+
+### User-bezogene Operationen (nach Authentifizierung)
+
+| **Operation**                          | **Endpoint**                 | **HTTP-Methode** | **Body**                             | **Status** | **Fehlermeldungen**                                        |
+| -------------------------------------- | ---------------------------- | ---------------- | ------------------------------------ | ---------- | ---------------------------------------------------------- |
+| Alle Check-ins abrufen                 | `/users/checkins`            | GET              | Keine                                | 200        | `userNotFound` (404)                                       |
+| Check-ins von heute abrufen            | `/users/checkins/today`      | GET              | Keine                                | 200        | `userNotFound` (404)                                       |
+| Einzelnen Check-in abrufen             | `/users/checkins/:checkinId` | GET              | Keine                                | 200        | `userNotFound`, `checkinNotFound` (404)                    |
+| Check-in erstellen                     | `/users/checkins`            | POST             | `{ emotion, tags, comment, config }` | 201        | `userNotFound` (404)                                       |
+| Statistiken nach Emotionsfamilie       | `/users/stats/family`        | GET              | `?family=${familyName}`              | 200        | `userNotFound`, `familyNotFound` (404)                     |
+| Statistiken nach Kontext-Begriff       | `/users/stats/tag`           | GET              | `?tag=${tagName}`                    | 200        | `userNotFound`, `tagNotFound` (404)                        |
+| User-spezifische Elemente abrufen      | `/users/customs`             | GET              | Keine                                | 200        | `userNotFound` (404)                                       |
+| User-spezifisches Element deaktivieren | `/users/customs`             | PATCH            | `{ type, name }`                     | 200        | `userNotFound`, `missingInfo`, `customNotFound` (404, 400) |
 
 ---
 

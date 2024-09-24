@@ -70,7 +70,7 @@ export const login = async (req, res, next) => {
     });
 
     res.status(200).json({
-      message: `Login with user id [${user._id}] successfull.`,
+      message: `Login with user id [${user._id}] successful.`,
       data: { isConfigured: user.config.isConfigured },
     });
   } catch (error) {

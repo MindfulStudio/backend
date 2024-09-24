@@ -13,6 +13,7 @@ dotenv.config({ path: "../.env" });
 // LOAD ENV VARIABLES
 const db_url = process.env.DB_URL;
 const port = process.env.PORT || 3000;
+const base_url_frontend = process.env.BASE_URL_FRONTEND;
 
 //CONNECT TO DB
 await connectDB(db_url);
@@ -24,7 +25,7 @@ export const app = express();
 app.use(express.json());
 app.use(
   cors({
-    origin: ["http://localhost:5173", "http://localhost:5174"],
+    origin: [base_url_frontend],
     credentials: true,
   })
 );

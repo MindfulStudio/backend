@@ -1,7 +1,7 @@
 import { User } from "../../models/userModel.js";
 import dotenv from "dotenv";
 
-dotenv.config({ path: "../.env" });
+dotenv.config();
 
 const BASE_URL_FRONTEND = process.env.BASE_URL_FRONTEND;
 

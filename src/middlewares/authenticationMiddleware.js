@@ -10,6 +10,7 @@ const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET;
 export const authenticationMiddleware = async (req, res, next) => {
   try {
     const token = req.cookies["accessToken"];
+    console.log("authenticationMiddleware: req.cookies", req.cookies);
     console.log("authenticationMiddleware: token", token);
 
     if (!token) {

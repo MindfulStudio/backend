@@ -1,7 +1,7 @@
 import { jwtVerify } from "../utils/jwt.js";
 import dotenv from "dotenv";
 
-dotenv.config({ path: "../.env" });
+dotenv.config();
 
 const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET;
 
@@ -10,6 +10,7 @@ const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET;
 export const authenticationMiddleware = async (req, res, next) => {
   try {
     const token = req.cookies["accessToken"];
+    console.log("authenticationMiddleware: token", token);
 
     if (!token) {
       return res.status(401).json({

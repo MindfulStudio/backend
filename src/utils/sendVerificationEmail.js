@@ -1,7 +1,7 @@
 import nodemailer from "nodemailer";
 import dotenv from "dotenv";
 
-dotenv.config({ path: "../.env" });
+dotenv.config();
 
 const { SENDER_EMAIL, SENDER_PASSWORD } = process.env;
 const BASE_URL = process.env.BASE_URL || "http://localhost:3000";

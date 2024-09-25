@@ -7,8 +7,7 @@ import { appRouter } from "./routers/appRouter.js";
 import { errorMiddleware } from "./middlewares/errorMiddleware.js";
 import { connectDB } from "./utils/connectDB.js";
 
-//SINCE WE WORK IN SRC, PATH IS NECESSARY
-dotenv.config({ path: "../.env" });
+dotenv.config();
 
 // LOAD ENV VARIABLES
 const db_url = process.env.DB_URL;

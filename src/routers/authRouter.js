@@ -3,11 +3,14 @@ import { register } from "../controllers/auth/register.js";
 import { verify } from "../controllers/auth/verify.js";
 import { login } from "../controllers/auth/login.js";
 import { logout } from "../controllers/auth/logout.js";
+import { ping } from "../controllers/auth/ping.js";
 import { captcha } from "../middlewares/captcha.js";
 import { authenticationMiddleware } from "../middlewares/authenticationMiddleware.js";
 
 export const authRouter = express.Router();
 
+// PING
+authRouter.route("/ping").get(ping);
 // LOGIN
 authRouter.route("/register").post(captcha, register);
 // REGISTER

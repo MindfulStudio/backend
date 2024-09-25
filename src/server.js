@@ -25,7 +25,11 @@ export const app = express();
 app.use(express.json());
 app.use(
   cors({
-    origin: [base_url_frontend],
+    origin: [
+      base_url_frontend,
+      "http://localhost:5173",
+      "http://localhost:5174",
+    ],
     credentials: true,
   })
 );

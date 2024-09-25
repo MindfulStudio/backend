@@ -65,8 +65,8 @@ export const login = async (req, res, next) => {
     res.cookie("accessToken", accessToken, {
       maxAge: stayLoggedIn ? 604800000 : 3600000, // cookie stays for 7 days if user wants to stay logged in, otherwise for 1 hour
       httpOnly: true,
-      sameSite: "Strict",
-      secure: true,
+      sameSite: "None",
+      secure: false,
     });
 
     res.status(200).json({

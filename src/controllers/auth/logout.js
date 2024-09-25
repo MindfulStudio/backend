@@ -8,7 +8,7 @@ export const logout = async (req, res, next) => {
       sameSite: "Strict",
       secure: true,
     });
-    res.status(200).json({ message: "Logout successfull" });
+    res.status(200).json({ message: "Logout successful" });
   } catch (error) {
     next(error);
   }

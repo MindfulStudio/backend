@@ -1,7 +1,7 @@
 import { jwtVerify } from "../utils/jwt.js";
 import dotenv from "dotenv";
 
-dotenv.config({ path: "../.env" });
+dotenv.config();
 
 const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET;
 

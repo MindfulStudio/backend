@@ -3,7 +3,7 @@ import { compare } from "../../utils/crypto.js";
 import { generateAccessToken } from "../../utils/jwt.js";
 import dotenv from "dotenv";
 
-dotenv.config({ path: "../.env" });
+dotenv.config();
 
 const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET;
 
@@ -65,12 +65,12 @@ export const login = async (req, res, next) => {
     res.cookie("accessToken", accessToken, {
       maxAge: stayLoggedIn ? 604800000 : 3600000, // cookie stays for 7 days if user wants to stay logged in, otherwise for 1 hour
       httpOnly: true,
-      sameSite: "Strict",
+      sameSite: "None",
       secure: true,
     });
 
     res.status(200).json({
-      message: `Login with user id [${user._id}] successfull.`,
+      message: `Login with user id [${user._id}] successful.`,
       data: { isConfigured: user.config.isConfigured },
     });
   } catch (error) {

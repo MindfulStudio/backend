@@ -7,8 +7,7 @@ import { appRouter } from "./routers/appRouter.js";
 import { errorMiddleware } from "./middlewares/errorMiddleware.js";
 import { connectDB } from "./utils/connectDB.js";
 
-//SINCE WE WORK IN SRC, PATH IS NECESSARY
-dotenv.config({ path: "../.env" });
+dotenv.config();
 
 // LOAD ENV VARIABLES
 const db_url = process.env.DB_URL;
@@ -25,7 +24,11 @@ export const app = express();
 app.use(express.json());
 app.use(
   cors({
-    origin: [base_url_frontend],
+    origin: [
+      base_url_frontend,
+      "http://localhost:5173",
+      "http://localhost:5174",
+    ],
     credentials: true,
   })
 );

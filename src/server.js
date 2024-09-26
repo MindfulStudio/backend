@@ -15,7 +15,6 @@ const port = process.env.PORT || 3000;
 const base_url_frontend = process.env.BASE_URL_FRONTEND;
 
 //CONNECT TO DB
-console.log(db_url);
 await connectDB(db_url);
 
 // CREATE EXPRESS APP

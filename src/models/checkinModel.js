@@ -16,7 +16,7 @@ export const emotionFamilies = [
   "Freude",
   "Trauer",
   "Entspannung",
-  "Gemischte Gefühle",
+  "gemischte Gefühle",
 ];
 const tagCategories = ["wann", "wo", "mitWem", "was"];
 

@@ -1,3 +1,6 @@
+<details>
+<summary>🇬🇧 English</summary>
+
 # Backend for a Mental Health App
 
 ## 📖 Description
@@ -146,9 +149,11 @@ To be added.
 
 [luisePkt](https://github.com/luisePkt), [Nadja Probst](https://github.com/nadjascodejourney), [Barış Balcı](https://github.com/barisbalcimusic), [hannahnier](https://github.com/hannahnier)
 
-<br>
-<br>
+</details>
 
+
+<details>
+  <summary>🇩🇪 Deutsch</summary>
 # Backend für eine Mental-Health-App
 
 ## 📖 Beschreibung
@@ -298,3 +303,5 @@ Wird noch ergänzt.
 ## 📧 Kontakt
 
 [luisePkt](https://github.com/luisePkt), [Nadja Probst](https://github.com/nadjascodejourney), [Barış Balcı](https://github.com/barisbalcimusic), [hannahnier](https://github.com/hannahnier)
+
+</details>

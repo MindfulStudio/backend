@@ -132,7 +132,7 @@ This table summarizes all possible error messages that the server returns in cas
 
 ## 🎓 Project Context
 
-This backend project is part of a collaborative final project completed by [luisePkt](https://github.com/luisePkt), [Nadja Probst](https://github.com/nadjascodejourney), [Barış Balcı](https://github.com/barisbalcimusic), and [hannahnier](https://github.com/hannahnier) at the end of a one-year full-time course in Fullstack Web Development. It operates alongside a [Frontend repository](https://github.com/frontend-repo-link) to create a comprehensive Browser Application on the subject of Mental Health.
+This backend project is part of a collaborative final project completed by [luisePkt](https://github.com/luisePkt), [Nadja Probst](https://github.com/nadjascodejourney), [Barış Balcı](https://github.com/barisbalcimusic), and [hannahnier](https://github.com/hannahnier) at the end of a one-year full-time course in Fullstack Web Development. It operates alongside a [Frontend repository](https://github.com/MindfulStudio/frontend) to create a comprehensive Browser Application on the subject of Mental Health.
 
 ---
 
@@ -285,7 +285,7 @@ Diese Tabelle enthält eine Übersicht aller möglichen Fehlermeldungen, die der
 
 ## 🎓 Projektrahmen
 
-Dieses Backendprojekt ist Teil eines Abschlussprojekts, das von [luisePkt](https://github.com/luisePkt), [Nadja Probst](https://github.com/nadjascodejourney), [Barış Balcı](https://github.com/barisbalcimusic) & [hannahnier](https://github.com/hannahnier) zum Ende einer einjährigen Vollzeit-Weiterbildung im Bereich Fullstack-Webdevelopment entwickelt wurde. Zusammen mit dem dazugehörigen [Frontend-Repository](https://github.com/frontend-repo-link) ist dabei eine umfassende Browser-App für Mentale Gesundheit entstanden.
+Dieses Backendprojekt ist Teil eines Abschlussprojekts, das von [luisePkt](https://github.com/luisePkt), [Nadja Probst](https://github.com/nadjascodejourney), [Barış Balcı](https://github.com/barisbalcimusic) & [hannahnier](https://github.com/hannahnier) zum Ende einer einjährigen Vollzeit-Weiterbildung im Bereich Fullstack-Webdevelopment entwickelt wurde. Zusammen mit dem dazugehörigen [Frontend-Repository](https://github.com/MindfulStudio/frontend) ist dabei eine umfassende Browser-App für Mentale Gesundheit entstanden.
 
 ---
 

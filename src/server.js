@@ -13,6 +13,7 @@ dotenv.config();
 const db_url = process.env.DB_URL;
 const port = process.env.PORT || 3000;
 const base_url_frontend = process.env.BASE_URL_FRONTEND;
+const second_base_url_frontend = process.env.SECOND_BASE_URL_FRONTEND || ""; // temporary only
 
 //CONNECT TO DB
 await connectDB(db_url);
@@ -26,9 +27,10 @@ app.use(
   cors({
     origin: [
       base_url_frontend,
+      second_base_url_frontend,
       "http://localhost:5173",
       "http://localhost:5174",
-    ],
+    ].filter(Boolean),
     credentials: true,
   })
 );

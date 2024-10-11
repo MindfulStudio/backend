@@ -1,3 +1,6 @@
+<details>
+<summary>🇬🇧 English</summary>
+
 # Backend for a Mental Health App
 
 ## 📖 Description
@@ -79,19 +82,20 @@ The following overviews summarize all possible operations along with their respe
 
 **Note:** For all endpoints outside of authentication operations, a valid session is required. This session is identified by a cookie received upon successful login via the `/auth/login` endpoint.
 
-| **Request**                  | **Endpoint**                      | **HTTP Method** | **Body (Example)**             | **Status** | **Error Messages**                        |
-| ---------------------------- | --------------------------------- | --------------- | ------------------------------ | ---------- | ----------------------------------------- |
-| Get User Data                | /users                            | GET             | /                              | 200        | userNotFound                              |
-| Update User Data             | /users                            | PATCH           | username                       | 200        | userNotFound                              |
-| Delete User                  | /users                            | DELETE          | /                              | 200        | userNotFound                              |
-| Get All Check-ins            | /users/checkins                   | GET             | /                              | 200        | userNotFound                              |
-| Get Today's Check-ins        | /users/checkins/today             | GET             | /                              | 200        | userNotFound                              |
-| Get Single Check-in          | /users/checkins/:checkinId        | GET             | /                              | 200        | userNotFound, checkinNotFound             |
-| Create Check-in              | /users/checkins                   | POST            | emotion, tags, comment, config | 201        | userNotFound                              |
-| Statistics by Emotion Family | /users/stats/family?family=FAMILY | GET             | /                              | 200        | userNotFound, familyNotFound              |
-| Statistics by Context Tag    | /users/stats/tag?tag=TAG          | GET             | /                              | 200        | userNotFound, tagNotFound                 |
-| Get Custom Items             | /users/customs                    | GET             | /                              | 200        | userNotFound                              |
-| Deactivate Custom Item       | /users/customs                    | PATCH           | type, name                     | 200        | userNotFound, missingInfo, customNotFound |
+| **Request**                  | **Endpoint**                      | **HTTP Method** | **Body (Example)**                        | **Status** | **Error Messages**                        |
+| ---------------------------- | --------------------------------- | --------------- | ----------------------------------------- | ---------- | ----------------------------------------- |
+| Get User Data                | /users                            | GET             | /                                         | 200        | userNotFound                              |
+| Update User Data             | /users                            | PATCH           | username                                  | 200        | userNotFound                              |
+| Update User Password         | /users/password                   | PATCH           | passwords: {currentPassword, newPassword} | 200        | userNotFound, wrongPassword               |
+| Delete User                  | /users                            | DELETE          | /                                         | 200        | userNotFound                              |
+| Get All Check-ins            | /users/checkins                   | GET             | /                                         | 200        | userNotFound                              |
+| Get Today's Check-ins        | /users/checkins/today             | GET             | /                                         | 200        | userNotFound                              |
+| Get Single Check-in          | /users/checkins/:checkinId        | GET             | /                                         | 200        | userNotFound, checkinNotFound             |
+| Create Check-in              | /users/checkins                   | POST            | emotion, tags, comment, config            | 201        | userNotFound                              |
+| Statistics by Emotion Family | /users/stats/family?family=FAMILY | GET             | /                                         | 200        | userNotFound, familyNotFound              |
+| Statistics by Context Tag    | /users/stats/tag?tag=TAG          | GET             | /                                         | 200        | userNotFound, tagNotFound                 |
+| Get Custom Items             | /users/customs                    | GET             | /                                         | 200        | userNotFound                              |
+| Deactivate Custom Item       | /users/customs                    | PATCH           | type, name                                | 200        | userNotFound, missingInfo, customNotFound |
 
 </details>
 
@@ -125,6 +129,7 @@ This table summarizes all possible error messages that the server returns in cas
 | Error on generating access token            | accTokenError            | Error on generating access token                                        | 500        |
 | Verification token is missing               | verificationTokenMissing | Verification token is missing                                           | 401        |
 | User with this verification token not found | userNotFoundByToken      | User with verification token [token] not found                          | 404        |
+| Wrong Password (at password change)         | wrongPassword            | Missing or incorrect current password                                   | 403        |
 
 </details>
 
@@ -132,7 +137,7 @@ This table summarizes all possible error messages that the server returns in cas
 
 ## 🎓 Project Context
 
-This backend project is part of a collaborative final project completed by [luisePkt](https://github.com/luisePkt), [Nadja Probst](https://github.com/nadjascodejourney), [Barış Balcı](https://github.com/barisbalcimusic), and [hannahnier](https://github.com/hannahnier) at the end of a one-year full-time course in Fullstack Web Development. It operates alongside a [Frontend repository](https://github.com/frontend-repo-link) to create a comprehensive Browser Application on the subject of Mental Health.
+This backend project is part of a collaborative final project completed by [luisePkt](https://github.com/luisePkt), [Nadja Probst](https://github.com/nadjascodejourney), [Barış Balcı](https://github.com/barisbalcimusic), and [hannahnier](https://github.com/hannahnier) at the end of a one-year full-time course in Fullstack Web Development. It operates alongside a [Frontend repository](https://github.com/MindfulStudio/frontend) to create a comprehensive Browser Application on the subject of Mental Health.
 
 ---
 
@@ -146,9 +151,11 @@ To be added.
 
 [luisePkt](https://github.com/luisePkt), [Nadja Probst](https://github.com/nadjascodejourney), [Barış Balcı](https://github.com/barisbalcimusic), [hannahnier](https://github.com/hannahnier)
 
-<br>
-<br>
+</details>
 
+
+<details>
+  <summary>🇩🇪 Deutsch</summary>
 # Backend für eine Mental-Health-App
 
 ## 📖 Beschreibung
@@ -232,19 +239,20 @@ Die nachfolgenden Übersichten fassen alle möglichen Operationen mit ihren dazu
 
 **Hinweis:** Für alle Endpunkte außerhalb der Authentifizierungs-Operationen ist eine gültige Sitzung erforderlich. Diese Sitzung wird durch einen Cookie identifiziert, den man beim erfolgreichen Login über den Endpunkt `/auth/login` erhält.
 
-| **Operation**                    | **Endpoint**                      | **HTTP-Methode** | **Body (Beispiel)**            | **Status** | **Fehlermeldungen**                       |
-| -------------------------------- | --------------------------------- | ---------------- | ------------------------------ | ---------- | ----------------------------------------- |
-| Userdaten abrufen                | /users                            | GET              | /                              | 200        | userNotFound                              |
-| Userdaten aktualisieren          | /users                            | PATCH            | username                       | 200        | userNotFound                              |
-| User löschen                     | /users                            | DELETE           | /                              | 200        | userNotFound                              |
-| Alle Check-ins abrufen           | /users/checkins                   | GET              | /                              | 200        | userNotFound                              |
-| Check-ins von heute abrufen      | /users/checkins/today             | GET              | /                              | 200        | userNotFound                              |
-| Einzelnen Check-in abrufen       | /users/checkins/:checkinId        | GET              | /                              | 200        | userNotFound, checkinNotFound             |
-| Check-in erstellen               | /users/checkins                   | POST             | emotion, tags, comment, config | 201        | userNotFound                              |
-| Statistiken nach Emotionsfamilie | /users/stats/family?family=FAMILY | GET              | /                              | 200        | userNotFound, familyNotFound              |
-| Statistiken nach Kontext-Begriff | /users/stats/tag?tag=TAG          | GET              | /                              | 200        | userNotFound, tagNotFound                 |
-| Eigene Elemente abrufen          | /users/customs                    | GET              | /                              | 200        | userNotFound                              |
-| Eigenes Element deaktivieren     | /users/customs                    | PATCH            | type, name                     | 200        | userNotFound, missingInfo, customNotFound |
+| **Operation**                    | **Endpoint**                      | **HTTP-Methode** | **Body (Beispiel)**                       | **Status** | **Fehlermeldungen**                       |
+| -------------------------------- | --------------------------------- | ---------------- | ----------------------------------------- | ---------- | ----------------------------------------- |
+| Userdaten abrufen                | /users                            | GET              | /                                         | 200        | userNotFound                              |
+| Userdaten aktualisieren          | /users                            | PATCH            | username                                  | 200        | userNotFound                              |
+| Passwort aktualisieren           | /users/password                   | PATCH            | passwords: {currentPassword, newPassword} | 200        | userNotFound, wrongPassword               |
+| User löschen                     | /users                            | DELETE           | /                                         | 200        | userNotFound                              |
+| Alle Check-ins abrufen           | /users/checkins                   | GET              | /                                         | 200        | userNotFound                              |
+| Check-ins von heute abrufen      | /users/checkins/today             | GET              | /                                         | 200        | userNotFound                              |
+| Einzelnen Check-in abrufen       | /users/checkins/:checkinId        | GET              | /                                         | 200        | userNotFound, checkinNotFound             |
+| Check-in erstellen               | /users/checkins                   | POST             | emotion, tags, comment, config            | 201        | userNotFound                              |
+| Statistiken nach Emotionsfamilie | /users/stats/family?family=FAMILY | GET              | /                                         | 200        | userNotFound, familyNotFound              |
+| Statistiken nach Kontext-Begriff | /users/stats/tag?tag=TAG          | GET              | /                                         | 200        | userNotFound, tagNotFound                 |
+| Eigene Elemente abrufen          | /users/customs                    | GET              | /                                         | 200        | userNotFound                              |
+| Eigenes Element deaktivieren     | /users/customs                    | PATCH            | type, name                                | 200        | userNotFound, missingInfo, customNotFound |
 
 </details>
 
@@ -257,7 +265,7 @@ Die nachfolgenden Übersichten fassen alle möglichen Operationen mit ihren dazu
 
 Diese Tabelle enthält eine Übersicht aller möglichen Fehlermeldungen, die der Server bei Problemen zurücksendet.
 
-| **Fehlermeldung**                           | **Error**                | **Message**                                                             | **Status** |
+| **Problem**                                 | **Error**                | **Message**                                                             | **Status** |
 | ------------------------------------------- | ------------------------ | ----------------------------------------------------------------------- | ---------- |
 | User not found                              | userNotFound             | User with id [userId] not found                                         | 404        |
 | Missing information in body                 | missingInfo              | Please provide type and name of the custom item you want to deactivate. | 400        |
@@ -278,6 +286,7 @@ Diese Tabelle enthält eine Übersicht aller möglichen Fehlermeldungen, die der
 | Error on generating access token            | accTokenError            | Error on generating access token                                        | 500        |
 | Verification token is missing               | verificationTokenMissing | Verification token is missing                                           | 401        |
 | User with this verification token not found | userNotFoundByToken      | User with verification token [token] not found                          | 404        |
+| Wrong Password (at password change)         | wrongPassword            | Missing or incorrect current password                                   | 403        |
 
  </details>
 
@@ -285,7 +294,7 @@ Diese Tabelle enthält eine Übersicht aller möglichen Fehlermeldungen, die der
 
 ## 🎓 Projektrahmen
 
-Dieses Backendprojekt ist Teil eines Abschlussprojekts, das von [luisePkt](https://github.com/luisePkt), [Nadja Probst](https://github.com/nadjascodejourney), [Barış Balcı](https://github.com/barisbalcimusic) & [hannahnier](https://github.com/hannahnier) zum Ende einer einjährigen Vollzeit-Weiterbildung im Bereich Fullstack-Webdevelopment entwickelt wurde. Zusammen mit dem dazugehörigen [Frontend-Repository](https://github.com/frontend-repo-link) ist dabei eine umfassende Browser-App für Mentale Gesundheit entstanden.
+Dieses Backendprojekt ist Teil eines Abschlussprojekts, das von [luisePkt](https://github.com/luisePkt), [Nadja Probst](https://github.com/nadjascodejourney), [Barış Balcı](https://github.com/barisbalcimusic) & [hannahnier](https://github.com/hannahnier) zum Ende einer einjährigen Vollzeit-Weiterbildung im Bereich Fullstack-Webdevelopment entwickelt wurde. Zusammen mit dem dazugehörigen [Frontend-Repository](https://github.com/MindfulStudio/frontend) ist dabei eine umfassende Browser-App für Mentale Gesundheit entstanden.
 
 ---
 
@@ -298,3 +307,5 @@ Wird noch ergänzt.
 ## 📧 Kontakt
 
 [luisePkt](https://github.com/luisePkt), [Nadja Probst](https://github.com/nadjascodejourney), [Barış Balcı](https://github.com/barisbalcimusic), [hannahnier](https://github.com/hannahnier)
+
+</details>

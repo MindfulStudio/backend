@@ -22,10 +22,6 @@ export const updatePassword = async (req, res, next) => {
         message: `Missing or incorrect current password`,
       });
     }
-    const options = {
-      new: true,
-      runValidators: true,
-    };
 
     user.password = newPassword;
     await user.save();

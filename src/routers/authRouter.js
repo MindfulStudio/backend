@@ -6,6 +6,9 @@ import { logout } from "../controllers/auth/logout.js";
 import { ping } from "../controllers/auth/ping.js";
 import { captcha } from "../middlewares/captcha.js";
 import { authenticationMiddleware } from "../middlewares/authenticationMiddleware.js";
+import { forgotPassword } from "../controllers/auth/forgotPassword.js";
+import { requestPasswordReset } from "../controllers/auth/requestPasswordReset.js";
+import { resetPassword } from "../controllers/auth/resetPassword.js";
 
 export const authRouter = express.Router();
 
@@ -25,3 +28,7 @@ authRouter
   .get(authenticationMiddleware, async (req, res, next) => {
     res.status(200).json({ isValid: true });
   });
+// FORGOT & RESET PASSWORD
+authRouter.route("/forgotPassword").post(forgotPassword);
+authRouter.route("/requestPasswordReset").get(requestPasswordReset);
+authRouter.route("/resetPassword").patch(resetPassword);

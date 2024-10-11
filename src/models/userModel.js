@@ -51,6 +51,11 @@ const userSchema = new Schema(
       required: true,
       set: (token) => sanitize(token),
     },
+    passwordResetToken: {
+      type: String,
+      default: "",
+      set: (token) => sanitize(token),
+    },
     config: {
       isConfigured: { type: Boolean, default: false },
       sleepingHours: { type: Boolean, default: true },

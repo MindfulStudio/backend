@@ -61,6 +61,18 @@ export const login = async (req, res, next) => {
         message: "Error on generating access token",
       });
 
+    // DELETE TRACKINGS IF TEST USER LOGGED IN
+    if (email === process.env.TEST_USER_ACCOUNT) {
+      try {
+        await User.updateOne(
+          { email: process.env.TEST_USER_ACCOUNT },
+          { $set: { checkins: [] } }
+        );
+      } catch (err) {
+        throw err;
+      }
+    }
+
     // SET COOKIE
     res.cookie("accessToken", accessToken, {
       maxAge: stayLoggedIn ? 604800000 : 3600000, // cookie stays for 7 days if user wants to stay logged in, otherwise for 1 hour

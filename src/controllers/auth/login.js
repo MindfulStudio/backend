@@ -1,4 +1,5 @@
 import { User } from "../../models/userModel.js";
+import { Checkin } from "../../models/checkinModel.js";
 import { compare } from "../../utils/crypto.js";
 import { generateAccessToken } from "../../utils/jwt.js";
 import dotenv from "dotenv";
@@ -64,9 +65,27 @@ export const login = async (req, res, next) => {
     // DELETE TRACKINGS IF TEST USER LOGGED IN
     if (email === process.env.TEST_USER_ACCOUNT) {
       try {
+        // DELETE TEST USER'S CHECKINS
+        const user = await User.findOne({
+          email: process.env.TEST_USER_ACCOUNT,
+        });
+        for (let checkin of user.checkins) {
+          await Checkin.findByIdAndDelete(checkin._id);
+        }
+        // RESET TEST USER SETTINGS
         await User.updateOne(
           { email: process.env.TEST_USER_ACCOUNT },
-          { $set: { checkins: [] } }
+          {
+            $set: {
+              checkins: [],
+              config: {
+                isConfigured: true,
+                sleepingHours: true,
+                physicalActivity: true,
+                weather: true,
+              },
+            },
+          }
         );
       } catch (err) {
         throw err;

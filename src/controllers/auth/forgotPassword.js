@@ -1,6 +1,11 @@
 import { User } from "../../models/userModel.js";
+import { jwtSignPwResetToken } from "../../utils/jwt.js";
 import { sendPasswordResetEmail } from "../../utils/sendPasswordResetEmail.js";
-import crypto from "crypto";
+import dotenv from "dotenv";
+
+dotenv.config();
+
+const { ACCESS_TOKEN_SECRET } = process.env;
 
 // SEND EMAIL FOR PASSWORD RESET
 
@@ -16,7 +21,7 @@ export const forgotPassword = async (req, res, next) => {
     }
 
     // GENERATE RESET TOKEN
-    const token = crypto.randomBytes(32).toString("hex");
+    const token = jwtSignPwResetToken(user.id, ACCESS_TOKEN_SECRET);
 
     if (!token)
       return res.status(500).json({

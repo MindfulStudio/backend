@@ -1,4 +1,5 @@
 import { User } from "../../models/userModel.js";
+import { Checkin } from "../../models/checkinModel.js";
 import { compare } from "../../utils/crypto.js";
 import { generateAccessToken } from "../../utils/jwt.js";
 import dotenv from "dotenv";
@@ -61,12 +62,33 @@ export const login = async (req, res, next) => {
         message: "Error on generating access token",
       });
 
+    let testUserLoggedIn =
+      req.body.email === process.env.TEST_USER_ACCOUNT ? true : false;
+
     // DELETE TRACKINGS IF TEST USER LOGGED IN
-    if (email === process.env.TEST_USER_ACCOUNT) {
+    if (testUserLoggedIn) {
       try {
+        // DELETE TEST USER'S CHECKINS
+        const user = await User.findOne({
+          email: process.env.TEST_USER_ACCOUNT,
+        });
+        for (let checkin of user.checkins) {
+          await Checkin.findByIdAndDelete(checkin._id);
+        }
+        // RESET TEST USER SETTINGS
         await User.updateOne(
           { email: process.env.TEST_USER_ACCOUNT },
-          { $set: { checkins: [] } }
+          {
+            $set: {
+              checkins: [],
+              config: {
+                isConfigured: false,
+                sleepingHours: true,
+                physicalActivity: true,
+                weather: true,
+              },
+            },
+          }
         );
       } catch (err) {
         throw err;
@@ -83,7 +105,9 @@ export const login = async (req, res, next) => {
 
     res.status(200).json({
       message: `Login with user id [${user._id}] successful.`,
-      data: { isConfigured: user.config.isConfigured },
+      data: {
+        isConfigured: testUserLoggedIn ? false : user.config.isConfigured,
+      },
     });
   } catch (error) {
     next(error);

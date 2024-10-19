@@ -62,8 +62,11 @@ export const login = async (req, res, next) => {
         message: "Error on generating access token",
       });
 
+    let testUserLoggedIn =
+      req.body.email === process.env.TEST_USER_ACCOUNT ? true : false;
+
     // DELETE TRACKINGS IF TEST USER LOGGED IN
-    if (email === process.env.TEST_USER_ACCOUNT) {
+    if (testUserLoggedIn) {
       try {
         // DELETE TEST USER'S CHECKINS
         const user = await User.findOne({
@@ -79,7 +82,7 @@ export const login = async (req, res, next) => {
             $set: {
               checkins: [],
               config: {
-                isConfigured: true,
+                isConfigured: false,
                 sleepingHours: true,
                 physicalActivity: true,
                 weather: true,
@@ -102,7 +105,9 @@ export const login = async (req, res, next) => {
 
     res.status(200).json({
       message: `Login with user id [${user._id}] successful.`,
-      data: { isConfigured: user.config.isConfigured },
+      data: {
+        isConfigured: testUserLoggedIn ? false : user.config.isConfigured,
+      },
     });
   } catch (error) {
     next(error);

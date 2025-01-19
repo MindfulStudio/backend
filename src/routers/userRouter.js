@@ -13,4 +13,6 @@ userRouter
   .get(authenticationMiddleware, getSingleUser)
   .patch(authenticationMiddleware, updateUser)
   .delete(authenticationMiddleware, deleteUser);
-userRouter.route("/password").patch(authenticationMiddleware, updatePassword);
+userRouter
+  .route("/updatePassword")
+  .patch(authenticationMiddleware, updatePassword);

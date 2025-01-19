@@ -36,15 +36,15 @@ export const sendVerificationLink = async (
 
     // EMAIL IN HTML FORMAT:
     html: `
-    <div style="font-family: Arial, sans-serif; color: #333333; line-height: 1.6;">
-      <h2 style="color: #007BFF;">Willkommen bei ${appName}!</h2>
+    <div style="max-width: 500px; font-family: Arial, sans-serif; color: #333333; line-height: 1.6;">
+      <h2 style="color: #878B94;">Willkommen bei ${appName}!</h2>
       <p>Hallo ${userName}!</p>
       <p>Schön, dass du dich für <strong>${appName}</strong> registriert hast.</p>
       <p>Um deine Registrierung abzuschließen, klicke bitte auf den folgenden Link:</p>
-      <p style="text-align: center;">
-        <a href="${verificationLink}" target="_blank" style="background-color: #007BFF; color: #ffffff; text-decoration: none; padding: 10px 20px; border-radius: 5px; display: inline-block;">Registrierung bestätigen</a>
+      <p style="text-align: center">
+        <a href="${verificationLink}" target="_blank" style="background-color: #FFDBDC; text-decoration: none; padding: 10px 20px; border-radius: 5px; display: inline-block;">Registrierung bestätigen</a>
       </p>
-      <p>Oder kopiere diesen Link in deinen Browser: <a href="${verificationLink}" target="_blank" style="color: #007BFF;">${verificationLink}</a></p>
+      <p style="color: #999999;">Oder kopiere diesen Link in deinen Browser: <a href="${verificationLink}" target="_blank" style="color: #999999;">${verificationLink}</a></p>
       <hr style="border: 0; border-top: 1px solid #dddddd; margin: 20px 0;">
       <p style="font-size: 12px; color: #999999;">
         Hinweis: Dies ist eine automatisch generierte E-Mail. Bitte antworte nicht auf diese E-Mail.

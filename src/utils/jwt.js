@@ -21,3 +21,21 @@ export const jwtVerify = (token, accessTokenSecret) => {
     }
   });
 };
+
+// GENERATE PASSWORD RESET TOKEN:
+export const jwtSignPwResetToken = (id, accessTokenSecret) => {
+  return jwt.sign({ id }, accessTokenSecret, {
+    expiresIn: "1h",
+  });
+};
+
+// VERIFY ACCESS TOKEN:
+export const jwtVerifyPwResetToken = (token, accessTokenSecret) => {
+  return jwt.verify(token, accessTokenSecret, (error, payload) => {
+    if (error) {
+      return error;
+    } else {
+      return payload;
+    }
+  });
+};

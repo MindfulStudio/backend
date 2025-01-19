@@ -63,13 +63,16 @@ The following overviews summarize all possible operations along with their respe
 
 ### Authentication Requests
 
-| **Request**   | **Endpoint**             | **HTTP Method** | **Body**                      | **Status** | **Error Messages**                                                                          |
-| ------------- | ------------------------ | --------------- | ----------------------------- | ---------- | ------------------------------------------------------------------------------------------- |
-| Registration  | /auth/register           | POST            | username, email, password     | 201        | missingRegData, passValidation, hashError, verTokenError, alreadyRegistered                 |
-| Login         | /auth/login              | POST            | email, password, stayLoggedIn | 201        | missingCredentials, userNotFound, invalidPassword, userNotVerified, envError, accTokenError |
-| Logout        | /auth/logout             | POST            | /                             | 200        | /                                                                                           |
-| Verification  | /auth/verify?token=TOKEN | GET             | /                             | 200        | verificationTokenMissing, userNotFoundByToken                                               |
-| Verify Cookie | /auth/verifyCookie       | GET             | /                             | 200        | /                                                                                           |
+| **Request**            | **Endpoint**                           | **HTTP Method** | **Body**                      | **Status** | **Error Messages**                                                                          |
+| ---------------------- | -------------------------------------- | --------------- | ----------------------------- | ---------- | ------------------------------------------------------------------------------------------- |
+| Registration           | /auth/register                         | POST            | username, email, password     | 201        | missingRegData, passValidation, hashError, verTokenError, alreadyRegistered                 |
+| Login                  | /auth/login                            | POST            | email, password, stayLoggedIn | 201        | missingCredentials, userNotFound, invalidPassword, userNotVerified, envError, accTokenError |
+| Logout                 | /auth/logout                           | POST            | /                             | 200        | /                                                                                           |
+| Verification           | /auth/verify?token=TOKEN               | GET             | /                             | 200        | verificationTokenMissing, userNotFoundByToken                                               |
+| Verify Cookie          | /auth/verifyCookie                     | GET             | /                             | 200        | /                                                                                           |
+| Forgot Password        | /auth/forgotPassword                   | POST            | email                         | 200        | verTokenError                                                                               |
+| Request Password Reset | /auth/requestPasswordReset?token=TOKEN | GET             | /                             | redirect   | verTokenError                                                                               |
+| Reset Password         | /auth/resetPassword                    | PATCH           | token, password               | 200        | missingData, userNotFound                                                                   |
 
 </details>
 
@@ -86,7 +89,7 @@ The following overviews summarize all possible operations along with their respe
 | ---------------------------- | --------------------------------- | --------------- | ----------------------------------------- | ---------- | ----------------------------------------- |
 | Get User Data                | /users                            | GET             | /                                         | 200        | userNotFound                              |
 | Update User Data             | /users                            | PATCH           | username                                  | 200        | userNotFound                              |
-| Update User Password         | /users/password                   | PATCH           | passwords: {currentPassword, newPassword} | 200        | userNotFound, wrongPassword               |
+| Update User Password         | /users/updatePassword             | PATCH           | passwords: {currentPassword, newPassword} | 200        | userNotFound, wrongPassword               |
 | Delete User                  | /users                            | DELETE          | /                                         | 200        | userNotFound                              |
 | Get All Check-ins            | /users/checkins                   | GET             | /                                         | 200        | userNotFound                              |
 | Get Today's Check-ins        | /users/checkins/today             | GET             | /                                         | 200        | userNotFound                              |
@@ -153,9 +156,9 @@ To be added.
 
 </details>
 
-
 <details>
   <summary>🇩🇪 Deutsch</summary>
+
 # Backend für eine Mental-Health-App
 
 ## 📖 Beschreibung
@@ -218,13 +221,16 @@ Die nachfolgenden Übersichten fassen alle möglichen Operationen mit ihren dazu
 
 ### Authentifizierung
 
-| **Operation**       | **Endpoint**             | **HTTP-Methode** | **Body**                      | **Status** | **Fehlermeldungen**                                                                         |
-| ------------------- | ------------------------ | ---------------- | ----------------------------- | ---------- | ------------------------------------------------------------------------------------------- |
-| Registrierung       | /auth/register           | POST             | username, email, password     | 201        | missingRegData, passValidation, hashError, verTokenError, alreadyRegistered                 |
-| Login               | /auth/login              | POST             | email, password, stayLoggedIn | 201        | missingCredentials, userNotFound, invalidPassword, userNotVerified, envError, accTokenError |
-| Logout              | /auth/logout             | POST             | /                             | 200        | /                                                                                           |
-| Verifizierung       | /auth/verify?token=TOKEN | GET              | /                             | 200        | verificationTokenMissing, userNotFoundByToken                                               |
-| Cookie verifizieren | /auth/verifyCookie       | GET              | /                             | 200        | /                                                                                           |
+| **Operation**              | **Endpoint**                           | **HTTP-Methode** | **Body**                      | **Status** | **Fehlermeldungen**                                                                         |
+| -------------------------- | -------------------------------------- | ---------------- | ----------------------------- | ---------- | ------------------------------------------------------------------------------------------- |
+| Registrierung              | /auth/register                         | POST             | username, email, password     | 201        | missingRegData, passValidation, hashError, verTokenError, alreadyRegistered                 |
+| Login                      | /auth/login                            | POST             | email, password, stayLoggedIn | 201        | missingCredentials, userNotFound, invalidPassword, userNotVerified, envError, accTokenError |
+| Logout                     | /auth/logout                           | POST             | /                             | 200        | /                                                                                           |
+| Verifizierung              | /auth/verify?token=TOKEN               | GET              | /                             | 200        | verificationTokenMissing, userNotFoundByToken                                               |
+| Cookie verifizieren        | /auth/verifyCookie                     | GET              | /                             | 200        | /                                                                                           |
+| Password vergessen         | /auth/forgotPassword                   | POST             | email                         | 200        | verTokenError                                                                               |
+| Passwortänderung anfordern | /auth/requestPasswordReset?token=TOKEN | GET              | /                             | redirect   | verTokenError                                                                               |
+| Passwort zurücksetzen      | /auth/resetPassword                    | PATCH            | token, password               | 200        | missingData, userNotFound                                                                   |
 
 </details>
 
@@ -243,7 +249,7 @@ Die nachfolgenden Übersichten fassen alle möglichen Operationen mit ihren dazu
 | -------------------------------- | --------------------------------- | ---------------- | ----------------------------------------- | ---------- | ----------------------------------------- |
 | Userdaten abrufen                | /users                            | GET              | /                                         | 200        | userNotFound                              |
 | Userdaten aktualisieren          | /users                            | PATCH            | username                                  | 200        | userNotFound                              |
-| Passwort aktualisieren           | /users/password                   | PATCH            | passwords: {currentPassword, newPassword} | 200        | userNotFound, wrongPassword               |
+| Passwort aktualisieren           | /users/updatePassword             | PATCH            | passwords: {currentPassword, newPassword} | 200        | userNotFound, wrongPassword               |
 | User löschen                     | /users                            | DELETE           | /                                         | 200        | userNotFound                              |
 | Alle Check-ins abrufen           | /users/checkins                   | GET              | /                                         | 200        | userNotFound                              |
 | Check-ins von heute abrufen      | /users/checkins/today             | GET              | /                                         | 200        | userNotFound                              |
